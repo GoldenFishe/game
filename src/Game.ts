@@ -8,7 +8,7 @@ import Master from "./Master";
 
 export default class Game implements IGame {
     public readonly id: number;
-    public readonly players: IPlayer[];
+    public players: IPlayer[];
     public readonly master: IMaster;
     public selectedPlayer: IPlayer | null;
     public readonly questions: IQuestions;
@@ -59,6 +59,10 @@ export default class Game implements IGame {
     public join(name: string): void {
         const player = new Player(this.players.length, name);
         this.players.push(player);
+    }
+
+    public leave(player: IPlayer): void {
+        this.players = this.players.filter(p => p.id === player.id);
     }
 
     public finishGame(): void {

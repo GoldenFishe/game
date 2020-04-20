@@ -1,4 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
+import io from "socket.io-client";
 
 import {POST} from "../../utils";
 import './style.css';
@@ -33,9 +34,15 @@ const Game = () => {
     }
 
     useEffect(() => {
-
-    })
-    console.log(game);
+        const socket = io('http://localhost:8080/game/0', {transports: ['websocket']});
+        socket.on('connect', function () {
+        });
+        socket.on('getState', state => {
+            console.log(state);
+            setGameState(state);
+        });
+        return () => socket.close();
+    }, [])
     const rout = () => {
         if (game && game.selectedQuestion) {
             return (
@@ -84,8 +91,9 @@ const Game = () => {
                             <div className="game-player__name">{player.name}</div>
                             <div className="game-player__points">{player.points}</div>
                             {(selected && game.selectedQuestion && game.answer) && <p>{player.answer}</p>}
-                            {(selected && game.selectedQuestion && !player.answer) && <textarea onChange={e => setAnswer(e.target.value)}
-                                                                     value={answer}/>}
+                            {(selected && game.selectedQuestion && !player.answer) &&
+                            <textarea onChange={e => setAnswer(e.target.value)}
+                                      value={answer}/>}
                             {selected && <button onClick={sendAnswer}>Отправить ответ</button>}
                         </div>
                     )

@@ -4,6 +4,7 @@ import {ICategory, IQuestion, IQuestions} from "./IQuestions";
 
 export interface IGame {
     id: number;
+    title: string;
     players: IPlayer[];
     master: IMaster;
     selectedPlayer: IPlayer | null;

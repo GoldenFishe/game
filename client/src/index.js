@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import Game from './views/Game/Game';
+import Main from "./views/Main/Main";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Game/>
+        <Main/>
     </React.StrictMode>,
     document.getElementById('root')
 );

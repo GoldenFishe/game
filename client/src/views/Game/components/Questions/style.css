@@ -1,0 +1,22 @@
+.game-categories {
+    display: flex;
+    flex-flow: column;
+    margin: 20px;
+    height: 600px;
+}
+
+.game-category {
+    display: flex;
+    flex-flow: row;
+}
+
+.game-category__title,
+.game-question {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}

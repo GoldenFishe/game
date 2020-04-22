@@ -7,7 +7,7 @@
     "compile": "tsc",
     "watch": "tsc -w",
     "build": "tsc -b",
-    "start": "nodemon dist/index.js"
+    "start": "tsc -w & nodemon dist/index.js"
   },
   "keywords": [],
   "author": "",

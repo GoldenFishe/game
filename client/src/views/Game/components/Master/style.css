@@ -1,0 +1,11 @@
+.game-master {
+    display: flex;
+    flex-flow: column;
+    border: 1px solid black;
+    width: 100px;
+}
+
+.game-master__name {
+    text-align: center;
+    height: 100px;
+}

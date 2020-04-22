@@ -1,77 +1,56 @@
-import {IGame, IGameState} from "./interfaces/IGame";
-import {IMaster} from "./interfaces/IMaster";
-import {IPlayer} from "./interfaces/IPlayer";
-import {ICategory, IQuestion, IQuestions} from "./interfaces/IQuestions";
-import Questions from "./Questions";
-import Player from "./Player";
-import Master from "./Master";
-
-export default class Game implements IGame {
-    public readonly id: number;
-    public readonly title: string;
-    public players: IPlayer[];
-    public readonly master: IMaster;
-    public selectedPlayer: IPlayer | null;
-    public readonly questions: IQuestions;
-    public currentRoundIndex: number;
-    public selectedCategoryId: number | null;
-    public selectedQuestion: IQuestion | null;
-
-    constructor(masterName: string, title :string, rawQuestions: IQuestions) {
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Questions_1 = __importDefault(require("./Questions"));
+const Player_1 = __importDefault(require("./Player"));
+const Master_1 = __importDefault(require("./Master"));
+class Game {
+    constructor(masterName, title, rawQuestions) {
         this.id = 0;
         this.title = title;
         this.players = [];
-        this.master = new Master(masterName);
+        this.master = new Master_1.default(masterName);
         this.selectedPlayer = null;
-        this.questions = new Questions(rawQuestions);
+        this.questions = new Questions_1.default(rawQuestions);
         this.currentRoundIndex = 0;
         this.selectedCategoryId = null;
         this.selectedQuestion = null;
     }
-
-    public selectPlayer(playerId: number): void {
+    selectPlayer(playerId) {
         this.selectedPlayer = this.players.find(player => player.id === playerId);
     }
-
-    public selectQuestion(categoryId: number, questionId: number): void {
+    selectQuestion(categoryId, questionId) {
         this.selectedCategoryId = categoryId;
         this.selectedQuestion = this.questions.getQuestion(this.currentRoundIndex, categoryId, questionId);
     }
-
-    public setAnswer(answer: string): void {
+    setAnswer(answer) {
         this.selectedPlayer.answer = answer;
     }
-
-    public judgeAnswer(correct: boolean): void {
+    judgeAnswer(correct) {
         correct ? this.correctAnswer() : this.incorrectAnswer();
     }
-
-    public correctAnswer(): void {
+    correctAnswer() {
         this.selectedPlayer.points += this.selectedQuestion.cost;
         this.selectedPlayer.answer = '';
         this.selectedQuestion.answered = true;
         this.deselectQuestion();
     }
-
-    public incorrectAnswer(): void {
+    incorrectAnswer() {
         this.selectedPlayer.points -= this.selectedQuestion.cost;
         this.selectedPlayer = null;
     }
-
-    public join(name: string): void {
-        const player = new Player(this.players.length, name);
+    join(name) {
+        const player = new Player_1.default(this.players.length, name);
         this.players.push(player);
     }
-
-    public leave(player: IPlayer): void {
+    leave(player) {
         this.players = this.players.filter(p => p.id === player.id);
     }
-
-    public finishGame(): void {
-
+    finishGame() {
     }
-
-    public getState(log: boolean = false): IGameState {
+    getState(log = false) {
         const categories = this.questions.rounds[this.currentRoundIndex];
         log && console.log({
             id: this.id,
@@ -81,7 +60,7 @@ export default class Game implements IGame {
             categories: categories,
             selectedCategoryId: this.selectedCategoryId,
             selectedQuestion: this.selectedQuestion
-        })
+        });
         return {
             id: this.id,
             players: this.players,
@@ -90,10 +69,9 @@ export default class Game implements IGame {
             categories: categories,
             selectedCategoryId: this.selectedCategoryId,
             selectedQuestion: this.selectedQuestion
-        }
+        };
     }
-
-    public deselectQuestion(): void {
+    deselectQuestion() {
         this.selectedCategoryId = null;
         this.selectedQuestion = null;
         const roundOver = this.checkRoundIsOver();
@@ -104,13 +82,13 @@ export default class Game implements IGame {
                 this.currentRoundIndex += 1;
         }
     }
-
-    public checkRoundIsOver(): boolean {
-        const checkAllQuestionsInCategoryIsAnswered = (category: ICategory): boolean => category.questions.every(question => question.answered)
+    checkRoundIsOver() {
+        const checkAllQuestionsInCategoryIsAnswered = (category) => category.questions.every(question => question.answered);
         return this.questions.rounds[this.currentRoundIndex].every(checkAllQuestionsInCategoryIsAnswered);
     }
-
-    public checkIsGameOver(): boolean {
+    checkIsGameOver() {
         return this.currentRoundIndex === this.questions.rounds.length;
     }
 }
+exports.default = Game;
+//# sourceMappingURL=Game.js.map

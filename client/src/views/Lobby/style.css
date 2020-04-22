@@ -1,0 +1,20 @@
+.lobby {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-column-gap: 40px;
+}
+
+.lobby-games-list {
+
+}
+
+.lobby-create-game-form {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+}
+
+.lobby-create-game-form input {
+    margin-bottom: 10px;
+}

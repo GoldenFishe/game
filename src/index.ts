@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import socket, {Server, Socket} from "socket.io";
 
 import {IGame} from "./interfaces/IGame";
+import {Roles} from "./enums/Roles";
 import Game from "./Game";
 import * as rawQuestions from "./questions.json";
 
@@ -36,17 +37,24 @@ app.get('/games', (req: Request, res: Response): void => {
     res.send(games);
 });
 
+app.get('/game/:id', (req: Request, res: Response): void => {
+    console.log(req.cookies);
+    res.send(games[0].getState());
+});
+
 app.post('/game/create', (req: Request, res: Response): void => {
     const {masterName, gameTitle}: { masterName: string, gameTitle: string } = req.body;
     const game = new Game(masterName, gameTitle, rawQuestions);
     games.push(game);
     gamesIO.emit('addGame', game);
-    res.cookie('role', 'master', {expires: new Date(Date.now() + 900000), httpOnly: true})
-    res.send(games[0].getState());
+    const cookieOptions = {expires: new Date(Date.now() + 900000), httpOnly: true};
+    res.cookie('role', Roles.Master, cookieOptions);
+    res.cookie('name', masterName, cookieOptions);
+    res.send({role: Roles.Master, ...games[0].getState()});
 })
 
 app.post('/game/:id/join', (req: Request, res: Response): void => {
-    const playerName: string = req.body.playerName;
+    const {playerName}: { playerName: string } = req.body;
     games[0].join(playerName);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);

@@ -15,6 +15,7 @@ const http_1 = __importDefault(require("http"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const socket_io_1 = __importDefault(require("socket.io"));
+const Roles_1 = require("./enums/Roles");
 const Game_1 = __importDefault(require("./Game"));
 const rawQuestions = __importStar(require("./questions.json"));
 const app = express_1.default();
@@ -39,16 +40,22 @@ app.get('/', (req, res) => {
 app.get('/games', (req, res) => {
     res.send(games);
 });
+app.get('/game/:id', (req, res) => {
+    console.log(req.cookies);
+    res.send(games[0].getState());
+});
 app.post('/game/create', (req, res) => {
     const { masterName, gameTitle } = req.body;
     const game = new Game_1.default(masterName, gameTitle, rawQuestions);
     games.push(game);
     gamesIO.emit('addGame', game);
-    res.cookie('role', 'master', { expires: new Date(Date.now() + 900000), httpOnly: true });
-    res.send(games[0].getState());
+    const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
+    res.cookie('role', Roles_1.Roles.Master, cookieOptions);
+    res.cookie('name', masterName, cookieOptions);
+    res.send(Object.assign({ role: Roles_1.Roles.Master }, games[0].getState()));
 });
 app.post('/game/:id/join', (req, res) => {
-    const playerName = req.body.playerName;
+    const { playerName } = req.body;
     games[0].join(playerName);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);

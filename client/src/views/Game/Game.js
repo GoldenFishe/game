@@ -2,7 +2,7 @@ import React, {useEffect, useState, memo, Fragment} from 'react';
 import {useParams} from 'react-router-dom';
 import io from "socket.io-client";
 
-import {POST} from "../../utils";
+import {GET, POST} from "../../utils";
 import Question from "./components/Question/Question";
 import Questions from "./components/Questions/Questions";
 import Player from "./components/Player/Player";
@@ -10,10 +10,9 @@ import Master from "./components/Master/Master";
 import './style.css';
 
 const Game = () => {
+    const {id} = useParams();
     const [game, setGameState] = useState(null);
     const [answer, setAnswer] = useState('');
-    const {id} = useParams();
-
     useEffect(() => {
         const socket = io(`http://localhost:8080/game/${id}`, {transports: ['websocket']});
         socket.on('connect', () => {
@@ -21,13 +20,9 @@ const Game = () => {
         socket.on('getState', state => {
             setGameState(state);
         });
-        joinGame('Anton');
+        getGame();
         return () => socket.close();
     }, []);
-    const joinGame = async playerName => {
-        const {data} = await POST(`/game/${id}/join`, {playerName});
-        setGameState(data)
-    }
     const selectPlayer = async playerId => {
         const {data} = await POST(`/game/${id}/select-player`, {playerId});
         setGameState(data);
@@ -43,6 +38,10 @@ const Game = () => {
     }
     const judge = async correct => {
         const {data} = await POST(`/game/${id}/judge`, {correct});
+        setGameState(data);
+    }
+    const getGame = async () => {
+        const {data} = await GET(`/game/${id}`);
         setGameState(data);
     }
     return (

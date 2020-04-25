@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 
 import './style.css';
 
-const Input = ({type, value, name, required, id, onChange}) => {
+const Input = ({type, value, name, required, id, readOnly, onChange}) => {
     return (
         <input type={type}
                value={value}
@@ -10,6 +10,7 @@ const Input = ({type, value, name, required, id, onChange}) => {
                id={id}
                required={required}
                onChange={onChange}
+               readOnly={readOnly}
                className="input"/>
     );
 };

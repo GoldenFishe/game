@@ -43,7 +43,7 @@ const Lobby = () => {
                        selectedGame={selectedGame}
                        selectGame={selectGame}/>
             {selectedGame ?
-                <GameDetails gameTitle={selectedGame.title}
+                <GameDetails selectedGame={selectedGame}
                              joinGame={joinGame}/> :
                 <CreateGameForm createGame={createGame}/>
             }

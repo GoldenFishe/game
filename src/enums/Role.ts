@@ -1,5 +1,5 @@
 export enum Role {
-    Master = 'Master',
-    Player = 'Payer',
-    Spectator = 'Spectator'
+    master = 'master',
+    player = 'Payer',
+    spectator = 'spectator'
 }

@@ -9,19 +9,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const db_1 = require("./utils/db");
-const Role_1 = require("./enums/Role");
-class Master {
-    constructor(id, name) {
-        this.id = id;
-        this.name = name;
+const pg_1 = require("pg");
+const pool = new pg_1.Pool({
+    user: 'ag.riazanov',
+    host: '127.0.0.1',
+    database: 'game',
+    password: '666666',
+    port: 5432
+});
+exports.query = (command, params) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const client = yield pool.connect();
+        const startTime = Date.now();
+        const result = yield client.query(command, params);
+        const duration = `${(Date.now() - startTime) / 1000} s`;
+        console.log('executed query', { command, duration, rows: result.rowCount });
+        client.release();
+        return result.rows;
     }
-    static insertInDb(name, game_id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const [master] = yield db_1.query(`INSERT INTO users (name, game_id, role) VALUES ('${name}', ${game_id}, '${Role_1.Role.master}') RETURNING *`);
-            return master;
-        });
+    catch (err) {
+        console.error(err.stack);
     }
-}
-exports.default = Master;
-//# sourceMappingURL=Master.js.map
+});
+//# sourceMappingURL=db.js.map

@@ -2,9 +2,8 @@ import {IGame, IGameState} from "./interfaces/IGame";
 import {IMaster} from "./interfaces/IMaster";
 import {IPlayer} from "./interfaces/IPlayer";
 import {ICategory, IQuestion, IQuestions} from "./interfaces/IQuestions";
-import Questions from "./Questions";
 import Player from "./Player";
-import Master from "./Master";
+import {query} from "./utils/db";
 
 export default class Game implements IGame {
     public readonly id: number;
@@ -12,21 +11,44 @@ export default class Game implements IGame {
     public players: IPlayer[];
     public readonly master: IMaster;
     public selectedPlayer: IPlayer | null;
-    public readonly questions: IQuestions;
+    public questions: IQuestions;
     public currentRoundIndex: number;
     public selectedCategoryId: number | null;
     public selectedQuestion: IQuestion | null;
 
-    constructor(masterName: string, title :string, rawQuestions: IQuestions) {
-        this.id = 0;
+    constructor(
+        id: number,
+        title: string,
+        players: IPlayer[],
+        master: IMaster,
+        selectedPlayer: IPlayer | null,
+        questions: IQuestions,
+        currentRoundIndex: number,
+        selectedCategoryId: number | null,
+        selectedQuestion: IQuestion | null) {
+        this.id = id;
         this.title = title;
-        this.players = [];
-        this.master = new Master(masterName);
-        this.selectedPlayer = null;
-        this.questions = new Questions(rawQuestions);
-        this.currentRoundIndex = 0;
-        this.selectedCategoryId = null;
-        this.selectedQuestion = null;
+        this.players = players;
+        this.master = master;
+        this.selectedPlayer = selectedPlayer;
+        this.questions = questions;
+        this.currentRoundIndex = currentRoundIndex;
+        this.selectedCategoryId = selectedCategoryId;
+        this.selectedQuestion = selectedQuestion;
+    }
+
+    static async insertInDb(title: string, jsonQuestions: IQuestions) {
+        const questions = JSON.stringify(jsonQuestions);
+        const [game] = await query(`INSERT INTO games (title, questions) VALUES ('${title}', '${questions}') RETURNING *`);
+        return game;
+    }
+
+    static async getGameFromDb(id: number) {
+        return await query(`SELECT * FROM games WHERE id = ${id}`);
+    }
+
+    static async getAllGamesFromDb() {
+        return await query(`SELECT * FROM games`);
     }
 
     public selectPlayer(playerId: number): void {
@@ -85,7 +107,7 @@ export default class Game implements IGame {
         return {
             id: this.id,
             players: this.players,
-            master: this.master,
+            master: {id: this.master.id, name: this.master.name},
             selectedPlayer: this.selectedPlayer,
             categories: categories,
             selectedCategoryId: this.selectedCategoryId,

@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Role;
 (function (Role) {
-    Role["Master"] = "Master";
-    Role["Player"] = "Payer";
-    Role["Spectator"] = "Spectator";
+    Role["master"] = "master";
+    Role["player"] = "Payer";
+    Role["spectator"] = "spectator";
 })(Role = exports.Role || (exports.Role = {}));
 //# sourceMappingURL=Role.js.map

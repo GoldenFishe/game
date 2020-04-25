@@ -1,0 +1,22 @@
+.button {
+    padding: 5px 10px;
+    border: 1px solid var(--gray);
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.button:focus {
+    outline: none;
+    border: 1px solid var(--blue);
+}
+
+.button:not(:first-child) {
+    margin-top: 10px;
+}
+
+.button:not(:last-child) {
+    margin-bottom: 10px;
+}

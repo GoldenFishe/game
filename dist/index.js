@@ -15,9 +15,10 @@ const http_1 = __importDefault(require("http"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const socket_io_1 = __importDefault(require("socket.io"));
-const Roles_1 = require("./enums/Roles");
+const Role_1 = require("./enums/Role");
 const Game_1 = __importDefault(require("./Game"));
 const rawQuestions = __importStar(require("./questions.json"));
+const PORT = process.env.PORT || 8080;
 const app = express_1.default();
 app.use(cookie_parser_1.default());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
@@ -25,64 +26,59 @@ app.use(body_parser_1.default.json());
 const server = http_1.default.createServer(app);
 const io = socket_io_1.default(server, { cookie: true });
 const games = [];
-const gameIO = io.of('/game/0');
-const gamesIO = io.of('/games');
+const gameIO = io.of('/api/game/0');
+const gamesIO = io.of('/api/games');
 gameIO.on('connection', (socket) => {
-    console.log('connected socket!');
-    socket.on('disconnect', () => {
-        console.log('Socket disconnected');
-    });
 });
-server.listen(8080, () => console.log('Example app listening on port 8080!'));
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-app.get('/games', (req, res) => {
+app.get('/api/games', (req, res) => {
     res.send(games);
 });
-app.get('/game/:id', (req, res) => {
-    console.log(req.cookies);
-    res.send(games[0].getState());
+app.get('/api/game/:id', (req, res) => {
+    const { role } = req.cookies;
+    res.send(Object.assign({ role }, games[0].getState()));
 });
-app.post('/game/create', (req, res) => {
+app.post('/api/game/create', (req, res) => {
     const { masterName, gameTitle } = req.body;
     const game = new Game_1.default(masterName, gameTitle, rawQuestions);
     games.push(game);
     gamesIO.emit('addGame', game);
     const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
-    res.cookie('role', Roles_1.Roles.Master, cookieOptions);
+    res.cookie('role', Role_1.Role.Master, cookieOptions);
     res.cookie('name', masterName, cookieOptions);
-    res.send(Object.assign({ role: Roles_1.Roles.Master }, games[0].getState()));
+    res.send(Object.assign({ role: Role_1.Role.Master }, games[0].getState()));
 });
-app.post('/game/:id/join', (req, res) => {
+app.post('/api/game/:id/join', (req, res) => {
     const { playerName } = req.body;
     games[0].join(playerName);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);
-    res.send(gameState);
+    res.send(Object.assign({ role: Role_1.Role.Master }, games[0].getState()));
 });
-app.post('/game/:id/select-player', (req, res) => {
+app.post('/api/game/:id/select-player', (req, res) => {
     const playerId = req.body.playerId;
     games[0].selectPlayer(playerId);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);
     res.send(gameState);
 });
-app.post('/game/:id/set-answer', (req, res) => {
+app.post('/api/game/:id/set-answer', (req, res) => {
     const answer = req.body.answer;
     games[0].setAnswer(answer);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);
     res.send(gameState);
 });
-app.post('/game/:id/judge', (req, res) => {
+app.post('/api/game/:id/judge', (req, res) => {
     const correct = req.body.correct;
     games[0].judgeAnswer(correct);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);
     res.send(gameState);
 });
-app.post('/game/:id/select-question', (req, res) => {
+app.post('/api/game/:id/select-question', (req, res) => {
     const categoryId = req.body.categoryId;
     const questionId = req.body.questionId;
     games[0].selectQuestion(categoryId, questionId);
@@ -90,4 +86,5 @@ app.post('/game/:id/select-question', (req, res) => {
     gameIO.emit('getState', gameState);
     res.send(gameState);
 });
+server.listen(8080, () => console.log(`Server is listening port ${PORT}`));
 //# sourceMappingURL=index.js.map

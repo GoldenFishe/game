@@ -1,0 +1,5 @@
+.lobby-create-game-form {
+    display: flex;
+    flex-flow: column;
+    width: 250px;
+}

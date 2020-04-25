@@ -1,0 +1,21 @@
+.input {
+    padding: 5px 10px;
+    border: 1px solid var(--gray);
+    transition: var(--transition);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.input:focus {
+    outline: none;
+    border: 1px solid var(--blue);
+}
+
+.input:not(:first-child) {
+    margin-top: 10px;
+}
+
+.input:not(:last-child) {
+    margin-bottom: 10px;
+}

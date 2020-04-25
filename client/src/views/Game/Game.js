@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import io from "socket.io-client";
 
 import {GET, POST} from "../../utils";
+import {Roles} from "./Constants";
 import Question from "./components/Question/Question";
 import Questions from "./components/Questions/Questions";
 import Player from "./components/Player/Player";
@@ -14,7 +15,7 @@ const Game = () => {
     const [game, setGameState] = useState(null);
     const [answer, setAnswer] = useState('');
     useEffect(() => {
-        const socket = io(`http://localhost:8080/game/${id}`, {transports: ['websocket']});
+        const socket = io(`http://localhost:8080/api/game/${id}`, {transports: ['websocket']});
         socket.on('connect', () => {
         });
         socket.on('getState', state => {
@@ -24,24 +25,24 @@ const Game = () => {
         return () => socket.close();
     }, []);
     const selectPlayer = async playerId => {
-        const {data} = await POST(`/game/${id}/select-player`, {playerId});
+        const {data} = await POST(`/api/game/${id}/select-player`, {playerId});
         setGameState(data);
     }
     const selectQuestion = async (categoryId, questionId) => {
-        const {data} = await POST(`/game/${id}/select-question`, {categoryId, questionId});
+        const {data} = await POST(`/api/game/${id}/select-question`, {categoryId, questionId});
         setGameState(data);
     }
     const sendAnswer = async () => {
-        const {data} = await POST(`/game/${id}/set-answer`, {answer});
+        const {data} = await POST(`/api/game/${id}/set-answer`, {answer});
         setAnswer('');
         setGameState(data);
     }
     const judge = async correct => {
-        const {data} = await POST(`/game/${id}/judge`, {correct});
+        const {data} = await POST(`/api/game/${id}/judge`, {correct});
         setGameState(data);
     }
     const getGame = async () => {
-        const {data} = await GET(`/game/${id}`);
+        const {data} = await GET(`/api/game/${id}`);
         setGameState(data);
     }
     return (
@@ -58,12 +59,14 @@ const Game = () => {
                             return (
                                 <Player player={player}
                                         selected={selected}
+                                        isPlayer={game.role === Roles.Player}
                                         onSelectPlayer={selectPlayer}
                                         key={player.id}/>
                             )
                         })}
                     </div>
                     <Master master={game.master}
+                            isMaster={game.role === Roles.Master}
                             onJudge={judge}/>
                 </Fragment>
             )}

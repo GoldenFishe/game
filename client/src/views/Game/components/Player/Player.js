@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 
 import './style.css';
 
-const Player = ({player, selected, onSelectPlayer}) => {
+const Player = ({player, selected, isPlayer, onSelectPlayer}) => {
     const className = `game-player${selected ? ' game-player--selected' : ''}`;
     return (
         <div className={className}

@@ -2,7 +2,6 @@ import {IGame, IGameState} from "./interfaces/IGame";
 import {IMaster} from "./interfaces/IMaster";
 import {IPlayer} from "./interfaces/IPlayer";
 import {ICategory, IQuestion, IQuestions} from "./interfaces/IQuestions";
-import Player from "./Player";
 import {query} from "./utils/db";
 
 export default class Game implements IGame {
@@ -37,18 +36,23 @@ export default class Game implements IGame {
         this.selectedQuestion = selectedQuestion;
     }
 
-    static async insertInDb(title: string, jsonQuestions: IQuestions) {
+    public static async insertInDb(title: string, jsonQuestions: IQuestions) {
         const questions = JSON.stringify(jsonQuestions);
         const [game] = await query(`INSERT INTO games (title, questions) VALUES ('${title}', '${questions}') RETURNING *`);
         return game;
     }
 
-    static async getGameFromDb(id: number) {
-        return await query(`SELECT * FROM games WHERE id = ${id}`);
+    public static async getGameFromDb(id: number) {
+        const [game] = await query(`SELECT * FROM games WHERE id = ${id}`);
+        return game;
     }
 
-    static async getAllGamesFromDb() {
+    public static async getAllGamesFromDb() {
         return await query(`SELECT * FROM games`);
+    }
+
+    public static async setMasterId(masterId: number, gameId: number) {
+        return await query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
     }
 
     public selectPlayer(playerId: number): void {
@@ -80,9 +84,9 @@ export default class Game implements IGame {
         this.selectedPlayer = null;
     }
 
-    public join(name: string): void {
-        const player = new Player(this.players.length, name);
-        this.players.push(player);
+    public static async join(playerId: number, gameId: number) {
+        const [game] = await query(`UPDATE games SET players_ids = array_append(players_ids, ${playerId}) WHERE id = ${gameId} RETURNING *`);
+        return game;
     }
 
     public leave(player: IPlayer): void {

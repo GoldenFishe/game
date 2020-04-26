@@ -9,6 +9,7 @@ import {Role} from "./enums/Role";
 import Game from "./Game";
 import Master from "./Master";
 import Questions from "./Questions";
+import Player from "./Player";
 
 const PORT = process.env.PORT || 8080;
 const app: Express = express();
@@ -40,24 +41,23 @@ app.post('/api/game/create', async (req: Request, res: Response): Promise<void> 
     const {masterName, gameTitle}: { masterName: string, gameTitle: string } = req.body;
     const questions = await Questions.getQuestionsFromDb(1);
     const game = await Game.insertInDb(gameTitle, questions);
-    const master = await Master.insertInDb(masterName, game.id);
-    const masterModel = new Master(master.id, master.name);
-    const questionsModel = new Questions(questions);
-    const gameModel = new Game(game.id, game.title, [], masterModel, null, questionsModel, 0, null, null);
-    const gameState = gameModel.getState();
-    gamesIO.emit('addGame', gameState);
+    await Master.insertInDb(masterName, game.id);
+    gamesIO.emit('addGame', game);
     const cookieOptions = {expires: new Date(Date.now() + 900000), httpOnly: true};
     res.cookie('role', Role.master, cookieOptions);
-    res.cookie('name', master.name, cookieOptions);
-    res.send({role: Role.master, gameState});
+    res.send({role: Role.master, ...game});
 })
 
-app.post('/api/game/:id/join', (req: Request, res: Response): void => {
-    const {playerName}: { playerName: string } = req.body;
-    games[0].join(playerName);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send({role: Role.master, ...games[0].getState()});
+app.post('/api/game/join', async (req: Request, res: Response): Promise<void> => {
+    const playerName = req.body.playerName;
+    const gameId = Number.parseInt(req.body.gameId);
+    const player = await Player.insertInDb(playerName, gameId);
+    console.log(player);
+    const game = await Game.join(player.id, gameId)
+    gameIO.emit('getState', game);
+    const cookieOptions = {expires: new Date(Date.now() + 900000), httpOnly: true};
+    res.cookie('role', Role.player, cookieOptions);
+    res.send({role: Role.player, ...game});
 })
 
 app.post('/api/game/:id/select-player', (req: Request, res: Response): void => {

@@ -8,11 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Player_1 = __importDefault(require("./Player"));
 const db_1 = require("./utils/db");
 class Game {
     constructor(id, title, players, master, selectedPlayer, questions, currentRoundIndex, selectedCategoryId, selectedQuestion) {
@@ -33,9 +29,20 @@ class Game {
             return game;
         });
     }
+    static getGameFromDb(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [game] = yield db_1.query(`SELECT * FROM games WHERE id = ${id}`);
+            return game;
+        });
+    }
     static getAllGamesFromDb() {
         return __awaiter(this, void 0, void 0, function* () {
             return yield db_1.query(`SELECT * FROM games`);
+        });
+    }
+    static setMasterId(masterId, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield db_1.query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
         });
     }
     selectPlayer(playerId) {
@@ -61,9 +68,11 @@ class Game {
         this.selectedPlayer.points -= this.selectedQuestion.cost;
         this.selectedPlayer = null;
     }
-    join(name) {
-        const player = new Player_1.default(this.players.length, name);
-        this.players.push(player);
+    static join(playerId, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [game] = yield db_1.query(`UPDATE games SET players_ids = array_append(players_ids, ${playerId}) WHERE id = ${gameId} RETURNING *`);
+            return game;
+        });
     }
     leave(player) {
         this.players = this.players.filter(p => p.id === player.id);

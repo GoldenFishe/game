@@ -10,11 +10,11 @@ const GameDetails = ({selectedGame, joinGame}) => {
               className="lobby-create-game-form">
             <h3 className="h3">{selectedGame.title}</h3>
             <label htmlFor="master_name">Организатор</label>
-            <Input type="text"
-                   id="master_name"
-                   name="master_name"
-                   value={selectedGame.master.name}
-                   readOnly/>
+            {/*<Input type="text"*/}
+            {/*       id="master_name"*/}
+            {/*       name="master_name"*/}
+            {/*       value={selectedGame.master.name}*/}
+            {/*       readOnly/>*/}
             <label htmlFor="status">Статус</label>
             <Input type="text"
                    id="status"
@@ -22,11 +22,11 @@ const GameDetails = ({selectedGame, joinGame}) => {
                    value="Не реализованно"
                    readOnly/>
             <label htmlFor="players_names">Игроки</label>
-            <Input type="text"
-                   id="players_names"
-                   name="players_names"
-                   value={selectedGame.players.map(player => player.name).join(', ')}
-                   readOnly/>
+            {/*<Input type="text"*/}
+            {/*       id="players_names"*/}
+            {/*       name="players_names"*/}
+            {/*       value={selectedGame.players.map(player => player.name).join(', ')}*/}
+            {/*       readOnly/>*/}
             <label htmlFor="questions_title">Пакет вопросов</label>
             <Input type="text"
                    id="questions_title"

@@ -16,6 +16,10 @@
     transition: var(--transition);
 }
 
+.lobby-games-list__item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
 .lobby-games-list__item--selected {
     border: 1px solid var(--blue);
 }

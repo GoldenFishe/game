@@ -21,6 +21,7 @@ const Role_1 = require("./enums/Role");
 const Game_1 = __importDefault(require("./Game"));
 const Master_1 = __importDefault(require("./Master"));
 const Questions_1 = __importDefault(require("./Questions"));
+const Player_1 = __importDefault(require("./Player"));
 const PORT = process.env.PORT || 8080;
 const app = express_1.default();
 app.use(cookie_parser_1.default());
@@ -37,32 +38,31 @@ app.get('/api/games', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const games = yield Game_1.default.getAllGamesFromDb();
     res.send(games);
 }));
-app.get('/api/game/:id', (req, res) => {
-    const { role } = req.cookies;
-    res.send(Object.assign({ role }, games[0].getState()));
-});
+app.get('/api/game/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const game = yield Game_1.default.getGameFromDb(Number.parseInt(req.params.id));
+    res.send(game);
+}));
 app.post('/api/game/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { masterName, gameTitle } = req.body;
     const questions = yield Questions_1.default.getQuestionsFromDb(1);
     const game = yield Game_1.default.insertInDb(gameTitle, questions);
-    const master = yield Master_1.default.insertInDb(masterName, game.id);
-    const masterModel = new Master_1.default(master.id, master.name);
-    const questionsModel = new Questions_1.default(questions);
-    const gameModel = new Game_1.default(game.id, game.title, [], masterModel, null, questionsModel, 0, null, null);
-    const gameState = gameModel.getState();
-    gamesIO.emit('addGame', gameState);
+    yield Master_1.default.insertInDb(masterName, game.id);
+    gamesIO.emit('addGame', game);
     const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
     res.cookie('role', Role_1.Role.master, cookieOptions);
-    res.cookie('name', master.name, cookieOptions);
-    res.send({ role: Role_1.Role.master, gameState });
+    res.send(Object.assign({ role: Role_1.Role.master }, game));
 }));
-app.post('/api/game/:id/join', (req, res) => {
-    const { playerName } = req.body;
-    games[0].join(playerName);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(Object.assign({ role: Role_1.Role.master }, games[0].getState()));
-});
+app.post('/api/game/join', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const playerName = req.body.playerName;
+    const gameId = Number.parseInt(req.body.gameId);
+    const player = yield Player_1.default.insertInDb(playerName, gameId);
+    console.log(player);
+    const game = yield Game_1.default.join(player.id, gameId);
+    gameIO.emit('getState', game);
+    const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
+    res.cookie('role', Role_1.Role.player, cookieOptions);
+    res.send(Object.assign({ role: Role_1.Role.player }, game));
+}));
 app.post('/api/game/:id/select-player', (req, res) => {
     const playerId = req.body.playerId;
     games[0].selectPlayer(playerId);

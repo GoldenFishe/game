@@ -25,8 +25,6 @@ export interface IGame {
 
     incorrectAnswer(): void;
 
-    join(name: string): void;
-
     finishGame(): void;
 
     getState(log?: boolean): IGameState;

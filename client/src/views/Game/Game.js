@@ -47,29 +47,29 @@ const Game = () => {
     }
     return (
         <div className="game">
-            {/*{game && (*/}
-            {/*    <Fragment>*/}
-            {/*        {game.selectedQuestion ?*/}
-            {/*            <Question question={game.selectedQuestion}/> :*/}
-            {/*            <Questions categories={game.categories}*/}
-            {/*                       onSelectQuestion={selectQuestion}/>}*/}
-            {/*        <div className="game-players">*/}
-            {/*            {game.players.map(player => {*/}
-            {/*                const selected = game.selectedPlayer && game.selectedPlayer.id === player.id;*/}
-            {/*                return (*/}
-            {/*                    <Player player={player}*/}
-            {/*                            selected={selected}*/}
-            {/*                            isPlayer={game.role === Roles.Player}*/}
-            {/*                            onSelectPlayer={selectPlayer}*/}
-            {/*                            key={player.id}/>*/}
-            {/*                )*/}
-            {/*            })}*/}
-            {/*        </div>*/}
-            {/*        <Master master={game.master}*/}
-            {/*                isMaster={game.role === Roles.Master}*/}
-            {/*                onJudge={judge}/>*/}
-            {/*    </Fragment>*/}
-            {/*)}*/}
+            {game && (
+                <Fragment>
+                    {game.selectedQuestion ?
+                        <Question question={game.selectedQuestion}/> :
+                        <Questions categories={game.categories}
+                                   onSelectQuestion={selectQuestion}/>}
+                    <div className="game-players">
+                        {game.players.map(player => {
+                            const selected = game.selectedPlayer && game.selectedPlayer.id === player.id;
+                            return (
+                                <Player player={player}
+                                        selected={selected}
+                                        isPlayer={game.role === Roles.Player}
+                                        onSelectPlayer={selectPlayer}
+                                        key={player.id}/>
+                            )
+                        })}
+                    </div>
+                    <Master master={game.master}
+                            isMaster={game.role === Roles.Master}
+                            onJudge={judge}/>
+                </Fragment>
+            )}
         </div>
     );
 };

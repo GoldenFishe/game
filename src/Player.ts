@@ -1,6 +1,7 @@
 import {IPlayer} from "./interfaces/IPlayer";
 import {query} from "./utils/db";
 import {Role} from "./enums/Role";
+import {IMaster} from "./interfaces/IMaster";
 
 export default class Player implements IPlayer {
     readonly id: number;
@@ -18,5 +19,14 @@ export default class Player implements IPlayer {
     public static async insertInDb(name: string, gameId: number): Promise<IPlayer> {
         const [player] = await query(`INSERT INTO users (name, game_id, points, role) VALUES ('${name}', ${gameId}, 0, '${Role.player}') RETURNING *`);
         return player;
+    }
+
+    public static async getGamePlayers(gameId: number): Promise<IPlayer[]> {
+        return await query(`SELECT * FROM users WHERE game_id = ${gameId} AND role != 'master'`);
+    }
+
+    public static async getGameMaster(gameId: number): Promise<IMaster> {
+        const [master] = await query(`SELECT * FROM users WHERE game_id = ${gameId} AND role = 'master'`);
+        return master;
     }
 }

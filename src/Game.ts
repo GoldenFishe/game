@@ -3,6 +3,7 @@ import {IMaster} from "./interfaces/IMaster";
 import {IPlayer} from "./interfaces/IPlayer";
 import {ICategory, IQuestion, IQuestions} from "./interfaces/IQuestions";
 import {query} from "./utils/db";
+import Player from "./Player";
 
 export default class Game implements IGame {
     public readonly id: number;
@@ -97,25 +98,20 @@ export default class Game implements IGame {
 
     }
 
-    public getState(log: boolean = false): IGameState {
-        const categories = this.questions.rounds[this.currentRoundIndex];
-        log && console.log({
-            id: this.id,
-            players: this.players,
-            master: this.master,
-            selectedPlayer: this.selectedPlayer,
-            categories: categories,
-            selectedCategoryId: this.selectedCategoryId,
-            selectedQuestion: this.selectedQuestion
-        })
+    public static async getState(gameId: number) {
+        const gamePromise = Game.getGameFromDb(gameId);
+        const playersPromise = Player.getGamePlayers(gameId);
+        const masterPromise = Player.getGameMaster(gameId);
+        const [game, players, master] = await Promise.all([gamePromise, playersPromise, masterPromise]);
         return {
-            id: this.id,
-            players: this.players,
-            master: {id: this.master.id, name: this.master.name},
-            selectedPlayer: this.selectedPlayer,
-            categories: categories,
-            selectedCategoryId: this.selectedCategoryId,
-            selectedQuestion: this.selectedQuestion
+            id: game.id,
+            title: game.title,
+            master: master,
+            players: players,
+            selectedPlayer: game.selected_player_id,
+            categories: game.questions.rounds[game.current_round_index],
+            selectedCategoryId: game.selected_category_id,
+            selectedQuestion: game.selected_question
         }
     }
 

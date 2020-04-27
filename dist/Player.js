@@ -24,6 +24,17 @@ class Player {
             return player;
         });
     }
+    static getGamePlayers(gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield db_1.query(`SELECT * FROM users WHERE game_id = ${gameId} AND role != 'master'`);
+        });
+    }
+    static getGameMaster(gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [master] = yield db_1.query(`SELECT * FROM users WHERE game_id = ${gameId} AND role = 'master'`);
+            return master;
+        });
+    }
 }
 exports.default = Player;
 //# sourceMappingURL=Player.js.map

@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("./utils/db");
+const Player_1 = __importDefault(require("./Player"));
 class Game {
     constructor(id, title, players, master, selectedPlayer, questions, currentRoundIndex, selectedCategoryId, selectedQuestion) {
         this.id = id;
@@ -79,26 +83,23 @@ class Game {
     }
     finishGame() {
     }
-    getState(log = false) {
-        const categories = this.questions.rounds[this.currentRoundIndex];
-        log && console.log({
-            id: this.id,
-            players: this.players,
-            master: this.master,
-            selectedPlayer: this.selectedPlayer,
-            categories: categories,
-            selectedCategoryId: this.selectedCategoryId,
-            selectedQuestion: this.selectedQuestion
+    static getState(gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const gamePromise = Game.getGameFromDb(gameId);
+            const playersPromise = Player_1.default.getGamePlayers(gameId);
+            const masterPromise = Player_1.default.getGameMaster(gameId);
+            const [game, players, master] = yield Promise.all([gamePromise, playersPromise, masterPromise]);
+            return {
+                id: game.id,
+                title: game.title,
+                master: master,
+                players: players,
+                selectedPlayer: game.selected_player_id,
+                categories: game.questions.rounds[game.current_round_index],
+                selectedCategoryId: game.selected_category_id,
+                selectedQuestion: game.selected_question
+            };
         });
-        return {
-            id: this.id,
-            players: this.players,
-            master: { id: this.master.id, name: this.master.name },
-            selectedPlayer: this.selectedPlayer,
-            categories: categories,
-            selectedCategoryId: this.selectedCategoryId,
-            selectedQuestion: this.selectedQuestion
-        };
     }
     deselectQuestion() {
         this.selectedCategoryId = null;

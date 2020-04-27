@@ -22,46 +22,58 @@ const Game_1 = __importDefault(require("./Game"));
 const Master_1 = __importDefault(require("./Master"));
 const Questions_1 = __importDefault(require("./Questions"));
 const Player_1 = __importDefault(require("./Player"));
-const PORT = process.env.PORT || 8080;
+const PORT = Number.parseInt(process.env.PORT) || 8080;
+const gamesSockets = new Map();
 const app = express_1.default();
 app.use(cookie_parser_1.default());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 const server = http_1.default.createServer(app);
 const io = socket_io_1.default(server, { cookie: true });
-const games = [];
-const gameIO = io.of('/api/game/0');
 const gamesIO = io.of('/api/games');
-gameIO.on('connection', (socket) => {
+const setCookie = (res, role, gameId, userId) => {
+    const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
+    res.cookie('role', role, cookieOptions);
+    res.cookie('gameId', gameId, cookieOptions);
+    res.cookie('userId', userId, cookieOptions);
+};
+const createGameSocket = (gameId) => {
+    const gameSocket = io.of(`/api/game/${gameId}`);
+    gamesSockets.set(gameId, gameSocket);
+};
+const emitGameState = (gameId) => __awaiter(void 0, void 0, void 0, function* () {
+    const gameState = yield Game_1.default.getState(gameId);
+    const gameSocket = gamesSockets.get(gameId);
+    gameSocket.emit('getState', gameState);
 });
 app.get('/api/games', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const games = yield Game_1.default.getAllGamesFromDb();
     res.send(games);
 }));
 app.get('/api/game/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const game = yield Game_1.default.getGameFromDb(Number.parseInt(req.params.id));
-    res.send(game);
+    const userId = Number.parseInt(req.cookies.userId);
+    const gameId = Number.parseInt(req.params.id);
+    const gameState = yield Game_1.default.getState(gameId);
+    res.send(gameState);
 }));
 app.post('/api/game/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { masterName, gameTitle } = req.body;
     const questions = yield Questions_1.default.getQuestionsFromDb(1);
     const game = yield Game_1.default.insertInDb(gameTitle, questions);
-    yield Master_1.default.insertInDb(masterName, game.id);
+    const master = yield Master_1.default.insertInDb(masterName, game.id);
     gamesIO.emit('addGame', game);
-    const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
-    res.cookie('role', Role_1.Role.master, cookieOptions);
-    res.send(Object.assign({ role: Role_1.Role.master }, game));
+    createGameSocket(game.id);
+    setCookie(res, Role_1.Role.master, game.id, master.id);
+    res.send({ id: game.id });
 }));
 app.post('/api/game/join', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const playerName = req.body.playerName;
     const gameId = Number.parseInt(req.body.gameId);
     const player = yield Player_1.default.insertInDb(playerName, gameId);
-    console.log(player);
     const game = yield Game_1.default.join(player.id, gameId);
-    gameIO.emit('getState', game);
-    const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
-    res.cookie('role', Role_1.Role.player, cookieOptions);
-    res.send(Object.assign({ role: Role_1.Role.player }, game));
+    yield emitGameState(gameId);
+    setCookie(res, Role_1.Role.player, game.id, player.id);
+    res.send({ id: game.id });
 }));
 app.post('/api/game/:id/select-player', (req, res) => {
     const playerId = req.body.playerId;

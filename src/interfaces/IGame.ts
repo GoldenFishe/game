@@ -27,8 +27,6 @@ export interface IGame {
 
     finishGame(): void;
 
-    getState(log?: boolean): IGameState;
-
     deselectQuestion(): void;
 
     checkRoundIsOver(): boolean;

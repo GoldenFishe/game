@@ -2,10 +2,10 @@ import React, {memo} from 'react';
 
 import './style.css';
 
-const Question = ({selectedQuestion}) => {
+const Question = ({question}) => {
     return (
         <div className="game-question">
-            {selectedQuestion.text}
+            {question.text}
         </div>
     );
 };

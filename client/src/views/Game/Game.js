@@ -24,22 +24,18 @@ const Game = () => {
         getGame();
         return () => socket.close();
     }, []);
-    const selectPlayer = async playerId => {
-        const {data} = await POST(`/api/game/${id}/select-player`, {playerId});
-        setGameState(data);
+    const selectPlayer = async () => {
+        POST(`/api/game/select-player`);
     }
-    const selectQuestion = async (categoryId, questionId) => {
-        const {data} = await POST(`/api/game/${id}/select-question`, {categoryId, questionId});
-        setGameState(data);
+    const selectQuestion = (categoryId, questionId) => {
+        POST(`/api/game/select-question`, {categoryId, questionId});
     }
     const sendAnswer = async () => {
-        const {data} = await POST(`/api/game/${id}/set-answer`, {answer});
+        await POST(`/api/game/set-answer`, {answer});
         setAnswer('');
-        setGameState(data);
     }
     const judge = async correct => {
-        const {data} = await POST(`/api/game/${id}/judge`, {correct});
-        setGameState(data);
+        await POST(`/api/game/judge`, {correct})
     }
     const getGame = async () => {
         const {data} = await GET(`/api/game/${id}`);
@@ -55,7 +51,7 @@ const Game = () => {
                                    onSelectQuestion={selectQuestion}/>}
                     <div className="game-players">
                         {game.players.map(player => {
-                            const selected = game.selectedPlayer && game.selectedPlayer.id === player.id;
+                            const selected = game.selectedPlayerId === player.id;
                             return (
                                 <Player player={player}
                                         selected={selected}

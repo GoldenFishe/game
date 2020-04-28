@@ -1,4 +1,4 @@
-import {IGame, IGameState} from "./interfaces/IGame";
+import {IGame} from "./interfaces/IGame";
 import {IMaster} from "./interfaces/IMaster";
 import {IPlayer} from "./interfaces/IPlayer";
 import {ICategory, IQuestion, IQuestions} from "./interfaces/IQuestions";
@@ -56,31 +56,35 @@ export default class Game implements IGame {
         return await query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
     }
 
-    public selectPlayer(playerId: number): void {
-        this.selectedPlayer = this.players.find(player => player.id === playerId);
+    public static async selectPlayer(playerId: number, gameId: number) {
+        return await query(`UPDATE games SET selected_player_id = ${playerId} WHERE id = ${gameId}`);
     }
 
-    public selectQuestion(categoryId: number, questionId: number): void {
-        this.selectedCategoryId = categoryId;
-        this.selectedQuestion = this.questions.getQuestion(this.currentRoundIndex, categoryId, questionId);
+    public static async selectQuestion(categoryId: number, questionId: number, gameId: number) {
+        const [{questions, current_round_index}] = await query(`SELECT questions, current_round_index FROM games WHERE id = ${gameId}`);
+        const category = questions.rounds[current_round_index].find((category: ICategory) => category.id === categoryId);
+        const question = category.questions.find((question: IQuestion) => question.id === questionId);
+        await query(`UPDATE games SET selected_category_id = ${categoryId}, selected_question = '${JSON.stringify(question)}' WHERE id = ${gameId}`);
     }
 
-    public setAnswer(answer: string): void {
-        this.selectedPlayer.answer = answer;
+    public static async setAnswer(answer: string, userId: number) {
+        return await query(`UPDATE users SET answer = ${answer} WHERE id = ${userId}`);
     }
 
-    public judgeAnswer(correct: boolean): void {
-        correct ? this.correctAnswer() : this.incorrectAnswer();
+    public static async judgeAnswer(correct: boolean, gameId: number) {
+        correct ?
+            await Game.correctAnswer() :
+            await Game.incorrectAnswer();
     }
 
-    public correctAnswer(): void {
+    private static async correctAnswer() {
         this.selectedPlayer.points += this.selectedQuestion.cost;
         this.selectedPlayer.answer = '';
         this.selectedQuestion.answered = true;
         this.deselectQuestion();
     }
 
-    public incorrectAnswer(): void {
+    private static async incorrectAnswer() {
         this.selectedPlayer.points -= this.selectedQuestion.cost;
         this.selectedPlayer = null;
     }
@@ -108,7 +112,7 @@ export default class Game implements IGame {
             title: game.title,
             master: master,
             players: players,
-            selectedPlayer: game.selected_player_id,
+            selectedPlayerId: game.selected_player_id,
             categories: game.questions.rounds[game.current_round_index],
             selectedCategoryId: game.selected_category_id,
             selectedQuestion: game.selected_question

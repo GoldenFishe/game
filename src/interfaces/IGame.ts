@@ -13,12 +13,6 @@ export interface IGame {
     selectedCategoryId: number | null;
     selectedQuestion: IQuestion | null;
 
-    selectPlayer(playerId: number): void;
-
-    selectQuestion(categoryId: number, questionId: number): void;
-
-    setAnswer(answer: string): void;
-
     judgeAnswer(correct: boolean): void;
 
     correctAnswer(): void;

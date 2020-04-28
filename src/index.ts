@@ -28,6 +28,11 @@ const setCookie = (res: Response, role: Role, gameId: number, userId: number): v
     res.cookie('gameId', gameId, cookieOptions);
     res.cookie('userId', userId, cookieOptions);
 };
+const getCookie = (req: Request): { userId: number, gameId: number } => {
+    const userId: number = Number.parseInt(req.cookies.userId);
+    const gameId: number = Number.parseInt(req.cookies.gameId);
+    return {userId, gameId};
+};
 const createGameSocket = (gameId: number): void => {
     const gameSocket = io.of(`/api/game/${gameId}`);
     gamesSockets.set(gameId, gameSocket);
@@ -37,6 +42,12 @@ const emitGameState = async (gameId: number): Promise<void> => {
     const gameSocket: Namespace = gamesSockets.get(gameId);
     gameSocket.emit('getState', gameState);
 };
+const createGamesSockets = async () => {
+    const games = await Game.getAllGamesFromDb();
+    games.map(game => createGameSocket(game.id));
+};
+
+createGamesSockets();
 
 app.get('/api/games', async (req: Request, res: Response): Promise<void> => {
     const games = await Game.getAllGamesFromDb();
@@ -57,7 +68,7 @@ app.post('/api/game/create', async (req: Request, res: Response): Promise<void> 
     createGameSocket(game.id);
     setCookie(res, Role.master, game.id, master.id);
     res.send({id: game.id});
-})
+});
 app.post('/api/game/join', async (req: Request, res: Response): Promise<void> => {
     const playerName = req.body.playerName;
     const gameId = Number.parseInt(req.body.gameId);
@@ -66,36 +77,38 @@ app.post('/api/game/join', async (req: Request, res: Response): Promise<void> =>
     await emitGameState(gameId);
     setCookie(res, Role.player, game.id, player.id);
     res.send({id: game.id});
-})
-app.post('/api/game/:id/select-player', (req: Request, res: Response): void => {
-    const playerId: number = req.body.playerId;
-    games[0].selectPlayer(playerId);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
-})
-app.post('/api/game/:id/set-answer', (req: Request, res: Response): void => {
+});
+app.post('/api/game/select-question', async (req: Request, res: Response) => {
+    const {gameId} = getCookie(req);
+    const categoryId: number = req.body.categoryId;
+    const questionId: number = req.body.questionId;
+    await Game.selectQuestion(categoryId, questionId, gameId);
+    await emitGameState(gameId);
+    res.sendStatus(200);
+});
+app.post('/api/game/select-player', async (req: Request, res: Response): Promise<void> => {
+    const {userId, gameId} = getCookie(req);
+    await Game.selectPlayer(userId, gameId);
+    await emitGameState(gameId);
+    res.sendStatus(200);
+});
+app.post('/api/game/set-answer', async (req: Request, res: Response) => {
+    const {userId, gameId} = getCookie(req);
     const answer: string = req.body.answer;
-    games[0].setAnswer(answer);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
-})
-app.post('/api/game/:id/judge', (req: Request, res: Response): void => {
+    await Game.setAnswer(answer, userId);
+    await emitGameState(gameId);
+    res.sendStatus(200);
+});
+app.post('/api/game/judge', async (req: Request, res: Response): void => {
+    const {gameId} = getCookie(req);
     const correct: boolean = req.body.correct;
+    await Game.judgeAnswer(correct, gameId);
+    await emitGameState(gameId);
     games[0].judgeAnswer(correct);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);
     res.send(gameState);
-})
-app.post('/api/game/:id/select-question', (req: Request, res: Response): void => {
-    const categoryId: number = req.body.categoryId;
-    const questionId: number = req.body.questionId;
-    games[0].selectQuestion(categoryId, questionId);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
-})
+});
 
 server.listen(8080, () => console.log(`Server is listening port ${PORT}`));
 

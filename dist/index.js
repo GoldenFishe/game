@@ -37,6 +37,11 @@ const setCookie = (res, role, gameId, userId) => {
     res.cookie('gameId', gameId, cookieOptions);
     res.cookie('userId', userId, cookieOptions);
 };
+const getCookie = (req) => {
+    const userId = Number.parseInt(req.cookies.userId);
+    const gameId = Number.parseInt(req.cookies.gameId);
+    return { userId, gameId };
+};
 const createGameSocket = (gameId) => {
     const gameSocket = io.of(`/api/game/${gameId}`);
     gamesSockets.set(gameId, gameSocket);
@@ -46,6 +51,11 @@ const emitGameState = (gameId) => __awaiter(void 0, void 0, void 0, function* ()
     const gameSocket = gamesSockets.get(gameId);
     gameSocket.emit('getState', gameState);
 });
+const createGamesSockets = () => __awaiter(void 0, void 0, void 0, function* () {
+    const games = yield Game_1.default.getAllGamesFromDb();
+    games.map(game => createGameSocket(game.id));
+});
+createGamesSockets();
 app.get('/api/games', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const games = yield Game_1.default.getAllGamesFromDb();
     res.send(games);
@@ -75,34 +85,36 @@ app.post('/api/game/join', (req, res) => __awaiter(void 0, void 0, void 0, funct
     setCookie(res, Role_1.Role.player, game.id, player.id);
     res.send({ id: game.id });
 }));
-app.post('/api/game/:id/select-player', (req, res) => {
-    const playerId = req.body.playerId;
-    games[0].selectPlayer(playerId);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
-});
-app.post('/api/game/:id/set-answer', (req, res) => {
+app.post('/api/game/select-question', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { gameId } = getCookie(req);
+    const categoryId = req.body.categoryId;
+    const questionId = req.body.questionId;
+    yield Game_1.default.selectQuestion(categoryId, questionId, gameId);
+    yield emitGameState(gameId);
+    res.sendStatus(200);
+}));
+app.post('/api/game/select-player', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId, gameId } = getCookie(req);
+    yield Game_1.default.selectPlayer(userId, gameId);
+    yield emitGameState(gameId);
+    res.sendStatus(200);
+}));
+app.post('/api/game/set-answer', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId, gameId } = getCookie(req);
     const answer = req.body.answer;
-    games[0].setAnswer(answer);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
-});
-app.post('/api/game/:id/judge', (req, res) => {
+    yield Game_1.default.setAnswer(answer, userId);
+    yield emitGameState(gameId);
+    res.sendStatus(200);
+}));
+app.post('/api/game/judge', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { gameId } = getCookie(req);
     const correct = req.body.correct;
+    yield Game_1.default.judgeAnswer(correct, gameId);
+    yield emitGameState(gameId);
     games[0].judgeAnswer(correct);
     const gameState = games[0].getState();
     gameIO.emit('getState', gameState);
     res.send(gameState);
-});
-app.post('/api/game/:id/select-question', (req, res) => {
-    const categoryId = req.body.categoryId;
-    const questionId = req.body.questionId;
-    games[0].selectQuestion(categoryId, questionId);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
-});
+}));
 server.listen(8080, () => console.log(`Server is listening port ${PORT}`));
 //# sourceMappingURL=index.js.map

@@ -49,28 +49,44 @@ class Game {
             return yield db_1.query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
         });
     }
-    selectPlayer(playerId) {
-        this.selectedPlayer = this.players.find(player => player.id === playerId);
+    static selectPlayer(playerId, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield db_1.query(`UPDATE games SET selected_player_id = ${playerId} WHERE id = ${gameId}`);
+        });
     }
-    selectQuestion(categoryId, questionId) {
-        this.selectedCategoryId = categoryId;
-        this.selectedQuestion = this.questions.getQuestion(this.currentRoundIndex, categoryId, questionId);
+    static selectQuestion(categoryId, questionId, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [{ questions, current_round_index }] = yield db_1.query(`SELECT questions, current_round_index FROM games WHERE id = ${gameId}`);
+            const category = questions.rounds[current_round_index].find((category) => category.id === categoryId);
+            const question = category.questions.find((question) => question.id === questionId);
+            yield db_1.query(`UPDATE games SET selected_category_id = ${categoryId}, selected_question = '${JSON.stringify(question)}' WHERE id = ${gameId}`);
+        });
     }
-    setAnswer(answer) {
-        this.selectedPlayer.answer = answer;
+    static setAnswer(answer, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield db_1.query(`UPDATE users SET answer = ${answer} WHERE id = ${userId}`);
+        });
     }
-    judgeAnswer(correct) {
-        correct ? this.correctAnswer() : this.incorrectAnswer();
+    static judgeAnswer(correct, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            correct ?
+                yield Game.correctAnswer() :
+                yield Game.incorrectAnswer();
+        });
     }
-    correctAnswer() {
-        this.selectedPlayer.points += this.selectedQuestion.cost;
-        this.selectedPlayer.answer = '';
-        this.selectedQuestion.answered = true;
-        this.deselectQuestion();
+    static correctAnswer() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.selectedPlayer.points += this.selectedQuestion.cost;
+            this.selectedPlayer.answer = '';
+            this.selectedQuestion.answered = true;
+            this.deselectQuestion();
+        });
     }
-    incorrectAnswer() {
-        this.selectedPlayer.points -= this.selectedQuestion.cost;
-        this.selectedPlayer = null;
+    static incorrectAnswer() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.selectedPlayer.points -= this.selectedQuestion.cost;
+            this.selectedPlayer = null;
+        });
     }
     static join(playerId, gameId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -94,7 +110,7 @@ class Game {
                 title: game.title,
                 master: master,
                 players: players,
-                selectedPlayer: game.selected_player_id,
+                selectedPlayerId: game.selected_player_id,
                 categories: game.questions.rounds[game.current_round_index],
                 selectedCategoryId: game.selected_category_id,
                 selectedQuestion: game.selected_question

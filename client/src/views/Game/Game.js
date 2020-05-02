@@ -3,8 +3,7 @@ import {useParams} from 'react-router-dom';
 import io from "socket.io-client";
 
 import {GET, POST} from "../../utils";
-import {Roles} from "./Constants";
-import Question from "./components/Question/Question";
+import SelectedQuestion from "./components/SelectedQuestion/SelectedQuestion";
 import Questions from "./components/Questions/Questions";
 import Player from "./components/Player/Player";
 import Master from "./components/Master/Master";
@@ -14,14 +13,14 @@ const Game = () => {
     const {id} = useParams();
     const [game, setGameState] = useState(null);
     const [answer, setAnswer] = useState('');
+    const [user, setUser] = useState({role: null, id: null});
     useEffect(() => {
         const socket = io(`http://localhost:8080/api/game/${id}`, {transports: ['websocket']});
-        socket.on('connect', () => {
-        });
         socket.on('getState', state => {
             setGameState(state);
         });
         getGame();
+        getUser();
         return () => socket.close();
     }, []);
     const selectPlayer = async () => {
@@ -41,29 +40,40 @@ const Game = () => {
         const {data} = await GET(`/api/game/${id}`);
         setGameState(data);
     }
+    const getUser = async () => {
+        const {data} = await GET(`/api/user`);
+        setUser(data);
+    }
     return (
         <div className="game">
             {game && (
                 <Fragment>
                     {game.selectedQuestion ?
-                        <Question question={game.selectedQuestion}/> :
+                        <SelectedQuestion question={game.selectedQuestion}/> :
                         <Questions categories={game.categories}
                                    onSelectQuestion={selectQuestion}/>}
-                    <div className="game-players">
+                    <div className="game-participants">
+                        <Master master={game.master}
+                                currentUser={user.id === game.master.id}
+                                visibleJudgeControls={game.players.some(player => player.answer)}
+                                onJudge={judge}/>
                         {game.players.map(player => {
-                            const selected = game.selectedPlayerId === player.id;
+                            const currentUser = user.id === player.id;
+                            const selectedPlayer = game.selectedPlayerId === player.id;
+                            const visibleAnswerButton = game.selectedQuestion && !game.selectedPlayerId && currentUser;
+                            const visibleAnswerForm = selectedPlayer && currentUser && !player.answer;
                             return (
                                 <Player player={player}
-                                        selected={selected}
-                                        isPlayer={game.role === Roles.Player}
+                                        visibleAnswerButton={visibleAnswerButton}
+                                        visibleAnswerForm={visibleAnswerForm}
+                                        selectedPlayer={selectedPlayer}
+                                        answer={answer}
                                         onSelectPlayer={selectPlayer}
-                                        key={player.id}/>
-                            )
+                                        onSetAnswer={setAnswer}
+                                        onSendAnswer={sendAnswer}
+                                        key={player.id}/>)
                         })}
                     </div>
-                    <Master master={game.master}
-                            isMaster={game.role === Roles.Master}
-                            onJudge={judge}/>
                 </Fragment>
             )}
         </div>

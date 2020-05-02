@@ -1,19 +1,26 @@
 import React, {memo} from 'react';
 
+import Button from "../../../../components/Button/Button";
+import Textarea from "../../../../components/Textarea/Textarea";
 import './style.css';
 
-const Player = ({player, selected, isPlayer, onSelectPlayer}) => {
-    const className = `game-player${selected ? ' game-player--selected' : ''}`;
+const Player = ({player, visibleAnswerButton, visibleAnswerForm, selectedPlayer, answer, onSelectPlayer, onSetAnswer, onSendAnswer}) => {
+    const className = `game-player${selectedPlayer ? ' game-player--selected' : ''}`;
     return (
         <div className={className}>
             <div className="game-player__name">{player.name}</div>
             <div className="game-player__points">{player.points}</div>
-            <button onClick={onSelectPlayer}>Ответить</button>
-            {/*{(selected && selectedQuestion && game.answer) && <p>{player.answer}</p>}*/}
-            {/*{(selected && selectedQuestion && !player.answer) &&*/}
-            {/*<textarea onChange={e => setAnswer(e.target.value)}*/}
-            {/*          value={answer}/>}*/}
-            {/*{selected && <button onClick={sendAnswer}>Отправить ответ</button>}*/}
+            {visibleAnswerButton && <Button onClick={onSelectPlayer}>Ответить</Button>}
+            {player.answer && <p>{player.answer}</p>}
+            {visibleAnswerForm &&
+            <form>
+                <Textarea onChange={e => onSetAnswer(e.target.value)}
+                          value={answer}/>
+                <Button type="submit"
+                        onClick={onSendAnswer}>
+                    Отправить ответ
+                </Button>
+            </form>}
         </div>
     );
 };

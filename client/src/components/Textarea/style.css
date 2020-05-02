@@ -1,0 +1,11 @@
+.textarea {
+    border-radius: 5px;
+    resize: none;
+    font-family: inherit;
+    padding: 5px 10px;
+    border: 1px solid var(--gray);
+}
+
+.textarea:focus {
+    outline: none;
+}

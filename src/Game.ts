@@ -68,38 +68,12 @@ export default class Game implements IGame {
     }
 
     public static async setAnswer(answer: string, userId: number) {
-        return await query(`UPDATE users SET answer = ${answer} WHERE id = ${userId}`);
-    }
-
-    public static async judgeAnswer(correct: boolean, gameId: number) {
-        correct ?
-            await Game.correctAnswer() :
-            await Game.incorrectAnswer();
-    }
-
-    private static async correctAnswer() {
-        this.selectedPlayer.points += this.selectedQuestion.cost;
-        this.selectedPlayer.answer = '';
-        this.selectedQuestion.answered = true;
-        this.deselectQuestion();
-    }
-
-    private static async incorrectAnswer() {
-        this.selectedPlayer.points -= this.selectedQuestion.cost;
-        this.selectedPlayer = null;
+        return await query(`UPDATE users SET answer = '${answer}' WHERE id = ${userId}`);
     }
 
     public static async join(playerId: number, gameId: number) {
         const [game] = await query(`UPDATE games SET players_ids = array_append(players_ids, ${playerId}) WHERE id = ${gameId} RETURNING *`);
         return game;
-    }
-
-    public leave(player: IPlayer): void {
-        this.players = this.players.filter(p => p.id === player.id);
-    }
-
-    public finishGame(): void {
-
     }
 
     public static async getState(gameId: number) {
@@ -119,24 +93,48 @@ export default class Game implements IGame {
         }
     }
 
-    public deselectQuestion(): void {
-        this.selectedCategoryId = null;
-        this.selectedQuestion = null;
-        const roundOver = this.checkRoundIsOver();
-        if (roundOver) {
-            const gameOver = this.checkIsGameOver();
-            gameOver ?
-                this.finishGame() :
-                this.currentRoundIndex += 1;
+    public static async judgeAnswer(correct: boolean, gameId: number) {
+        const [game] = await query(`SELECT * FROM games WHERE id = ${gameId}`);
+        correct ? await Game.correctAnswer(game) : await Game.incorrectAnswer(game);
+    }
+
+    private static async correctAnswer(game) {
+        const rounds = game.questions.rounds.map((round: ICategory[], i: number) => {
+            if (i === game.current_round_index) {
+                round.map((category: ICategory) => {
+                    if (category.id === game.selected_category_id) {
+                        category.questions.map((question: IQuestion) => {
+                            if (question.id === game.selected_question.id) question.answered = true;
+                            return question;
+                        })
+                    }
+                    return category;
+                });
+            }
+            return round;
+        })
+        const questions = {
+            ...game.questions,
+            rounds
         }
+        let roundIndex = game.current_round_index;
+        if (Game.checkRoundIsOver(game.questions.rounds[game.current_round_index])) {
+            if (game.questions.rounds.length - 1 < game.current_round_index) {
+                roundIndex += 1;
+            } else {
+                console.log('finish game');
+            }
+        }
+        await query(`UPDATE users SET points = points + ${game.selected_question.cost}, answer = null WHERE id = ${game.selected_player_id}`);
+        await query(`UPDATE games SET selected_player_id = null, questions = '${JSON.stringify(questions)}', selected_category_id = null, selected_question = null, current_round_index = ${roundIndex} WHERE id = ${game.id}`);
     }
 
-    public checkRoundIsOver(): boolean {
-        const checkAllQuestionsInCategoryIsAnswered = (category: ICategory): boolean => category.questions.every(question => question.answered)
-        return this.questions.rounds[this.currentRoundIndex].every(checkAllQuestionsInCategoryIsAnswered);
+    private static async incorrectAnswer(game) {
+        await query(`UPDATE users SET points = points - ${game.selected_question.cost}, answer = null WHERE id = ${game.selected_player_id}`);
+        await query(`UPDATE games SET selected_player_id = null WHERE id = ${game.id}`);
     }
 
-    public checkIsGameOver(): boolean {
-        return this.currentRoundIndex === this.questions.rounds.length;
+    private static checkRoundIsOver(round: ICategory[]): boolean {
+        return round.every((category: ICategory) => category.questions.every(question => question.answered));
     }
 }

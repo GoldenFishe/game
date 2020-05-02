@@ -22,6 +22,7 @@ const Game_1 = __importDefault(require("./Game"));
 const Master_1 = __importDefault(require("./Master"));
 const Questions_1 = __importDefault(require("./Questions"));
 const Player_1 = __importDefault(require("./Player"));
+const db_1 = require("./utils/db");
 const PORT = Number.parseInt(process.env.PORT) || 8080;
 const gamesSockets = new Map();
 const app = express_1.default();
@@ -61,10 +62,15 @@ app.get('/api/games', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     res.send(games);
 }));
 app.get('/api/game/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userId = Number.parseInt(req.cookies.userId);
     const gameId = Number.parseInt(req.params.id);
     const gameState = yield Game_1.default.getState(gameId);
     res.send(gameState);
+}));
+app.get('/api/user', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = getCookie(req);
+    // TODO: Переработать User
+    const [user] = yield db_1.query(`SELECT * FROM users WHERE id = ${userId}`);
+    res.send({ role: user.role, id: user.id });
 }));
 app.post('/api/game/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { masterName, gameTitle } = req.body;
@@ -111,10 +117,7 @@ app.post('/api/game/judge', (req, res) => __awaiter(void 0, void 0, void 0, func
     const correct = req.body.correct;
     yield Game_1.default.judgeAnswer(correct, gameId);
     yield emitGameState(gameId);
-    games[0].judgeAnswer(correct);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
+    res.sendStatus(200);
 }));
 server.listen(8080, () => console.log(`Server is listening port ${PORT}`));
 //# sourceMappingURL=index.js.map

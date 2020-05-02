@@ -9,6 +9,7 @@ import Game from "./Game";
 import Master from "./Master";
 import Questions from "./Questions";
 import Player from "./Player";
+import {query} from "./utils/db";
 
 const PORT: number = Number.parseInt(process.env.PORT) || 8080;
 const gamesSockets: Map<number, Namespace> = new Map();
@@ -54,10 +55,15 @@ app.get('/api/games', async (req: Request, res: Response): Promise<void> => {
     res.send(games);
 });
 app.get('/api/game/:id', async (req: Request, res: Response): Promise<void> => {
-    const userId: number = Number.parseInt(req.cookies.userId);
     const gameId = Number.parseInt(req.params.id);
     const gameState = await Game.getState(gameId);
     res.send(gameState);
+});
+app.get('/api/user', async (req: Request, res: Response): Promise<void> => {
+    const {userId} = getCookie(req);
+    // TODO: Переработать User
+    const [user] = await query(`SELECT * FROM users WHERE id = ${userId}`);
+    res.send({role: user.role, id: user.id});
 });
 app.post('/api/game/create', async (req: Request, res: Response): Promise<void> => {
     const {masterName, gameTitle}: { masterName: string, gameTitle: string } = req.body;
@@ -99,15 +105,12 @@ app.post('/api/game/set-answer', async (req: Request, res: Response) => {
     await emitGameState(gameId);
     res.sendStatus(200);
 });
-app.post('/api/game/judge', async (req: Request, res: Response): void => {
+app.post('/api/game/judge', async (req: Request, res: Response): Promise<void> => {
     const {gameId} = getCookie(req);
     const correct: boolean = req.body.correct;
     await Game.judgeAnswer(correct, gameId);
     await emitGameState(gameId);
-    games[0].judgeAnswer(correct);
-    const gameState = games[0].getState();
-    gameIO.emit('getState', gameState);
-    res.send(gameState);
+    res.sendStatus(200);
 });
 
 server.listen(8080, () => console.log(`Server is listening port ${PORT}`));

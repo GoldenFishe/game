@@ -1,7 +1,6 @@
 .game-categories {
     display: flex;
     flex-flow: column;
-    margin: 20px;
     height: 600px;
 }
 

@@ -1,5 +1,12 @@
-.game-players {
+.game {
+    padding: 20px;
+}
+
+.game-participants {
     display: flex;
     flex-flow: row;
     justify-content: space-around;
+    margin-top: 20px;
+    width: 100%;
+    min-height: 100px;
 }

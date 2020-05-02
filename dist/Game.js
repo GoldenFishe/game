@@ -64,28 +64,7 @@ class Game {
     }
     static setAnswer(answer, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield db_1.query(`UPDATE users SET answer = ${answer} WHERE id = ${userId}`);
-        });
-    }
-    static judgeAnswer(correct, gameId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            correct ?
-                yield Game.correctAnswer() :
-                yield Game.incorrectAnswer();
-        });
-    }
-    static correctAnswer() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.selectedPlayer.points += this.selectedQuestion.cost;
-            this.selectedPlayer.answer = '';
-            this.selectedQuestion.answered = true;
-            this.deselectQuestion();
-        });
-    }
-    static incorrectAnswer() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.selectedPlayer.points -= this.selectedQuestion.cost;
-            this.selectedPlayer = null;
+            return yield db_1.query(`UPDATE users SET answer = '${answer}' WHERE id = ${userId}`);
         });
     }
     static join(playerId, gameId) {
@@ -93,11 +72,6 @@ class Game {
             const [game] = yield db_1.query(`UPDATE games SET players_ids = array_append(players_ids, ${playerId}) WHERE id = ${gameId} RETURNING *`);
             return game;
         });
-    }
-    leave(player) {
-        this.players = this.players.filter(p => p.id === player.id);
-    }
-    finishGame() {
     }
     static getState(gameId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -117,23 +91,51 @@ class Game {
             };
         });
     }
-    deselectQuestion() {
-        this.selectedCategoryId = null;
-        this.selectedQuestion = null;
-        const roundOver = this.checkRoundIsOver();
-        if (roundOver) {
-            const gameOver = this.checkIsGameOver();
-            gameOver ?
-                this.finishGame() :
-                this.currentRoundIndex += 1;
-        }
+    static judgeAnswer(correct, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [game] = yield db_1.query(`SELECT * FROM games WHERE id = ${gameId}`);
+            correct ? yield Game.correctAnswer(game) : yield Game.incorrectAnswer(game);
+        });
     }
-    checkRoundIsOver() {
-        const checkAllQuestionsInCategoryIsAnswered = (category) => category.questions.every(question => question.answered);
-        return this.questions.rounds[this.currentRoundIndex].every(checkAllQuestionsInCategoryIsAnswered);
+    static correctAnswer(game) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const rounds = game.questions.rounds.map((round, i) => {
+                if (i === game.current_round_index) {
+                    round.map((category) => {
+                        if (category.id === game.selected_category_id) {
+                            category.questions.map((question) => {
+                                if (question.id === game.selected_question.id)
+                                    question.answered = true;
+                                return question;
+                            });
+                        }
+                        return category;
+                    });
+                }
+                return round;
+            });
+            const questions = Object.assign(Object.assign({}, game.questions), { rounds });
+            let roundIndex = game.current_round_index;
+            if (Game.checkRoundIsOver(game.questions.rounds[game.current_round_index])) {
+                if (game.questions.rounds.length - 1 < game.current_round_index) {
+                    roundIndex += 1;
+                }
+                else {
+                    console.log('finish game');
+                }
+            }
+            yield db_1.query(`UPDATE users SET points = points + ${game.selected_question.cost}, answer = null WHERE id = ${game.selected_player_id}`);
+            yield db_1.query(`UPDATE games SET selected_player_id = null, questions = '${JSON.stringify(questions)}', selected_category_id = null, selected_question = null, current_round_index = ${roundIndex} WHERE id = ${game.id}`);
+        });
     }
-    checkIsGameOver() {
-        return this.currentRoundIndex === this.questions.rounds.length;
+    static incorrectAnswer(game) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield db_1.query(`UPDATE users SET points = points - ${game.selected_question.cost}, answer = null WHERE id = ${game.selected_player_id}`);
+            yield db_1.query(`UPDATE games SET selected_player_id = null WHERE id = ${game.id}`);
+        });
+    }
+    static checkRoundIsOver(round) {
+        return round.every((category) => category.questions.every(question => question.answered));
     }
 }
 exports.default = Game;

@@ -13,12 +13,6 @@ export interface IGame {
     selectedCategoryId: number | null;
     selectedQuestion: IQuestion | null;
 
-    judgeAnswer(correct: boolean): void;
-
-    correctAnswer(): void;
-
-    incorrectAnswer(): void;
-
     finishGame(): void;
 
     deselectQuestion(): void;

@@ -1,15 +1,16 @@
 import React, {Fragment, memo} from 'react';
 
+import Button from "../../../../components/Button/Button";
 import './style.css';
 
-const Master = ({master, isMaster, onJudge}) => {
+const Master = ({master, currentUser, visibleJudgeControls, onJudge}) => {
     return (
         <div className="game-master">
             <div className="game-master__name">{master.name}</div>
-            {isMaster &&
+            {(currentUser && visibleJudgeControls) &&
             <Fragment>
-                <button onClick={() => onJudge(true)}>Правильно</button>
-                <button onClick={() => onJudge(false)}>Неправильно</button>
+                <Button onClick={() => onJudge(true)}>Правильно</Button>
+                <Button onClick={() => onJudge(false)}>Неправильно</Button>
             </Fragment>}
         </div>
     );

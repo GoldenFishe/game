@@ -1,17 +1,18 @@
 import express, {Express, Request, Response} from "express";
 import http from "http";
 import cookieParser from "cookie-parser";
+import cookie from "cookie";
 import bodyParser from "body-parser";
-import socket, {Namespace, Server} from "socket.io";
+import socket, {Namespace, Server, Socket} from "socket.io";
 
 import {Role} from "./enums/Role";
-import {query} from "./utils/db";
 import Game from "./Game";
 import Questions from "./Questions";
 import User from "./User";
+import {GameType} from "./types/Game";
 
 const PORT: number = Number.parseInt(process.env.PORT) || 8080;
-const gamesSockets: Map<number, Namespace> = new Map();
+const gamesSockets: Map<GameType["id"], Namespace> = new Map();
 const app: Express = express();
 
 app.use(cookieParser());
@@ -35,6 +36,19 @@ const getCookie = (req: Request): { userId: number, gameId: number } => {
 };
 const createGameSocket = (gameId: number): void => {
     const gameSocket = io.of(`/api/game/${gameId}`);
+    gameSocket.on('connection', (socket: Socket) => {
+        socket.on('disconnect', (reason) => {
+            const rawCookie = cookie.parse(socket.handshake.headers.cookie);
+            const userId: number = Number.parseInt(rawCookie.userId);
+            const gameId: number = Number.parseInt(rawCookie.gameId);
+            if (rawCookie.role === Role.master) {
+                Game.destroyGame(gameId);
+                gamesSockets.delete(gameId);
+            } else {
+                Game.leave(userId, gameId)
+            }
+        });
+    });
     gamesSockets.set(gameId, gameSocket);
 };
 const emitGameState = async (gameId: number): Promise<void> => {
@@ -42,7 +56,7 @@ const emitGameState = async (gameId: number): Promise<void> => {
     const gameSocket: Namespace = gamesSockets.get(gameId);
     gameSocket.emit('getState', gameState);
 };
-const createGamesSockets = async () => {
+const createGamesSockets = async (): Promise<void> => {
     const games = await Game.getAllGamesFromDb();
     games.map(game => createGameSocket(game.id));
 };
@@ -60,8 +74,7 @@ app.get('/api/game/:id', async (req: Request, res: Response): Promise<void> => {
 });
 app.get('/api/user', async (req: Request, res: Response): Promise<void> => {
     const {userId} = getCookie(req);
-    // TODO: Переработать User
-    const [user] = await query(`SELECT * FROM users WHERE id = ${userId}`);
+    const user = await User.getUserById(userId);
     res.send({role: user.role, id: user.id});
 });
 app.post('/api/game/create', async (req: Request, res: Response): Promise<void> => {

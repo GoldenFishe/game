@@ -6,5 +6,6 @@ export type UserType = {
     game_id: number;
     points: number | null;
     answer: string | null;
-    role: Role
+    role: Role,
+    selected: boolean;
 };

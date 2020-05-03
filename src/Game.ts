@@ -45,6 +45,12 @@ export default class Game {
         return game;
     }
 
+    public static async leave(playerId: number, gameId: number): Promise<void> {
+        const game: GameType = await Game.getGameFromDb(gameId);
+        const filteredPlayersIds = game.players_ids.filter((id: number) => playerId !== id);
+        await query(`UPDATE games SET players_ids = ARRAY[${filteredPlayersIds}] WHERE id = ${gameId}`);
+    }
+
     public static async getState(gameId: number): Promise<GameStateType> {
         const gamePromise: Promise<GameType> = Game.getGameFromDb(gameId);
         const playersPromise: Promise<UserType[]> = User.getGamePlayers(gameId);
@@ -65,6 +71,10 @@ export default class Game {
     public static async judgeAnswer(correct: boolean, gameId: number): Promise<void> {
         const game: GameType = await Game.getGameFromDb(gameId);
         correct ? await Game.correctAnswer(game) : await Game.incorrectAnswer(game);
+    }
+
+    public static async destroyGame(gameId: number): Promise<void> {
+        await query(`DELETE FROM games WHERE id = ${gameId}`);
     }
 
     private static async correctAnswer(game: GameType): Promise<void> {

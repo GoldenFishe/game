@@ -62,6 +62,13 @@ class Game {
             return game;
         });
     }
+    static leave(playerId, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const game = yield Game.getGameFromDb(gameId);
+            const filteredPlayersIds = game.players_ids.filter((id) => playerId !== id);
+            yield db_1.query(`UPDATE games SET players_ids = ARRAY[${filteredPlayersIds}] WHERE id = ${gameId}`);
+        });
+    }
     static getState(gameId) {
         return __awaiter(this, void 0, void 0, function* () {
             const gamePromise = Game.getGameFromDb(gameId);
@@ -84,6 +91,11 @@ class Game {
         return __awaiter(this, void 0, void 0, function* () {
             const game = yield Game.getGameFromDb(gameId);
             correct ? yield Game.correctAnswer(game) : yield Game.incorrectAnswer(game);
+        });
+    }
+    static destroyGame(gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield db_1.query(`DELETE FROM games WHERE id = ${gameId}`);
         });
     }
     static correctAnswer(game) {

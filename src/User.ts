@@ -24,4 +24,9 @@ export default class User {
         const [master]: UserType[] = await query(`SELECT * FROM users WHERE game_id = ${gameId} AND role = '${Role.master}'`);
         return master;
     }
+
+    public static async getUserById(userId: number): Promise<UserType> {
+        const [user]: UserType[] = await query(`SELECT * FROM users WHERE id = ${userId}`);
+        return user;
+    }
 }

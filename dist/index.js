@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const cookie_1 = __importDefault(require("cookie"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const Role_1 = require("./enums/Role");
-const db_1 = require("./utils/db");
 const Game_1 = __importDefault(require("./Game"));
 const Questions_1 = __importDefault(require("./Questions"));
 const User_1 = __importDefault(require("./User"));
@@ -44,6 +44,20 @@ const getCookie = (req) => {
 };
 const createGameSocket = (gameId) => {
     const gameSocket = io.of(`/api/game/${gameId}`);
+    gameSocket.on('connection', (socket) => {
+        socket.on('disconnect', (reason) => {
+            const rawCookie = cookie_1.default.parse(socket.handshake.headers.cookie);
+            const userId = Number.parseInt(rawCookie.userId);
+            const gameId = Number.parseInt(rawCookie.gameId);
+            if (rawCookie.role === Role_1.Role.master) {
+                Game_1.default.destroyGame(gameId);
+                gamesSockets.delete(gameId);
+            }
+            else {
+                Game_1.default.leave(userId, gameId);
+            }
+        });
+    });
     gamesSockets.set(gameId, gameSocket);
 };
 const emitGameState = (gameId) => __awaiter(void 0, void 0, void 0, function* () {
@@ -67,8 +81,7 @@ app.get('/api/game/:id', (req, res) => __awaiter(void 0, void 0, void 0, functio
 }));
 app.get('/api/user', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId } = getCookie(req);
-    // TODO: Переработать User
-    const [user] = yield db_1.query(`SELECT * FROM users WHERE id = ${userId}`);
+    const user = yield User_1.default.getUserById(userId);
     res.send({ role: user.role, id: user.id });
 }));
 app.post('/api/game/create', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

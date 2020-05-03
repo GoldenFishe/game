@@ -18,11 +18,10 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const Role_1 = require("./enums/Role");
-const Game_1 = __importDefault(require("./Game"));
-const Master_1 = __importDefault(require("./Master"));
-const Questions_1 = __importDefault(require("./Questions"));
-const Player_1 = __importDefault(require("./Player"));
 const db_1 = require("./utils/db");
+const Game_1 = __importDefault(require("./Game"));
+const Questions_1 = __importDefault(require("./Questions"));
+const User_1 = __importDefault(require("./User"));
 const PORT = Number.parseInt(process.env.PORT) || 8080;
 const gamesSockets = new Map();
 const app = express_1.default();
@@ -76,7 +75,7 @@ app.post('/api/game/create', (req, res) => __awaiter(void 0, void 0, void 0, fun
     const { masterName, gameTitle } = req.body;
     const questions = yield Questions_1.default.getQuestionsFromDb(1);
     const game = yield Game_1.default.insertInDb(gameTitle, questions);
-    const master = yield Master_1.default.insertInDb(masterName, game.id);
+    const master = yield User_1.default.insertMasterInDb(masterName, game.id);
     gamesIO.emit('addGame', game);
     createGameSocket(game.id);
     setCookie(res, Role_1.Role.master, game.id, master.id);
@@ -85,7 +84,7 @@ app.post('/api/game/create', (req, res) => __awaiter(void 0, void 0, void 0, fun
 app.post('/api/game/join', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const playerName = req.body.playerName;
     const gameId = Number.parseInt(req.body.gameId);
-    const player = yield Player_1.default.insertInDb(playerName, gameId);
+    const player = yield User_1.default.insertPlayerInDb(playerName, gameId);
     const game = yield Game_1.default.join(player.id, gameId);
     yield emitGameState(gameId);
     setCookie(res, Role_1.Role.player, game.id, player.id);

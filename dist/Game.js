@@ -13,19 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("./utils/db");
-const Player_1 = __importDefault(require("./Player"));
+const User_1 = __importDefault(require("./User"));
 class Game {
-    constructor(id, title, players, master, selectedPlayer, questions, currentRoundIndex, selectedCategoryId, selectedQuestion) {
-        this.id = id;
-        this.title = title;
-        this.players = players;
-        this.master = master;
-        this.selectedPlayer = selectedPlayer;
-        this.questions = questions;
-        this.currentRoundIndex = currentRoundIndex;
-        this.selectedCategoryId = selectedCategoryId;
-        this.selectedQuestion = selectedQuestion;
-    }
     static insertInDb(title, jsonQuestions) {
         return __awaiter(this, void 0, void 0, function* () {
             const questions = JSON.stringify(jsonQuestions);
@@ -44,27 +33,27 @@ class Game {
             return yield db_1.query(`SELECT * FROM games`);
         });
     }
-    static setMasterId(masterId, gameId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield db_1.query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
-        });
-    }
     static selectPlayer(playerId, gameId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield db_1.query(`UPDATE games SET selected_player_id = ${playerId} WHERE id = ${gameId}`);
+            yield db_1.query(`UPDATE games SET selected_player_id = ${playerId} WHERE id = ${gameId}`);
+        });
+    }
+    static setMasterId(masterId, gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield db_1.query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
         });
     }
     static selectQuestion(categoryId, questionId, gameId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [{ questions, current_round_index }] = yield db_1.query(`SELECT questions, current_round_index FROM games WHERE id = ${gameId}`);
-            const category = questions.rounds[current_round_index].find((category) => category.id === categoryId);
+            const game = yield Game.getGameFromDb(gameId);
+            const category = game.questions.rounds[game.current_round_index].find((category) => category.id === categoryId);
             const question = category.questions.find((question) => question.id === questionId);
             yield db_1.query(`UPDATE games SET selected_category_id = ${categoryId}, selected_question = '${JSON.stringify(question)}' WHERE id = ${gameId}`);
         });
     }
     static setAnswer(answer, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield db_1.query(`UPDATE users SET answer = '${answer}' WHERE id = ${userId}`);
+            yield db_1.query(`UPDATE users SET answer = '${answer}' WHERE id = ${userId}`);
         });
     }
     static join(playerId, gameId) {
@@ -76,8 +65,8 @@ class Game {
     static getState(gameId) {
         return __awaiter(this, void 0, void 0, function* () {
             const gamePromise = Game.getGameFromDb(gameId);
-            const playersPromise = Player_1.default.getGamePlayers(gameId);
-            const masterPromise = Player_1.default.getGameMaster(gameId);
+            const playersPromise = User_1.default.getGamePlayers(gameId);
+            const masterPromise = User_1.default.getGameMaster(gameId);
             const [game, players, master] = yield Promise.all([gamePromise, playersPromise, masterPromise]);
             return {
                 id: game.id,
@@ -93,7 +82,7 @@ class Game {
     }
     static judgeAnswer(correct, gameId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [game] = yield db_1.query(`SELECT * FROM games WHERE id = ${gameId}`);
+            const game = yield Game.getGameFromDb(gameId);
             correct ? yield Game.correctAnswer(game) : yield Game.incorrectAnswer(game);
         });
     }
@@ -135,7 +124,7 @@ class Game {
         });
     }
     static checkRoundIsOver(round) {
-        return round.every((category) => category.questions.every(question => question.answered));
+        return round.every((category) => category.questions.every((question) => question.answered));
     }
 }
 exports.default = Game;

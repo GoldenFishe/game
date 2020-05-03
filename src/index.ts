@@ -5,11 +5,10 @@ import bodyParser from "body-parser";
 import socket, {Namespace, Server} from "socket.io";
 
 import {Role} from "./enums/Role";
-import Game from "./Game";
-import Master from "./Master";
-import Questions from "./Questions";
-import Player from "./Player";
 import {query} from "./utils/db";
+import Game from "./Game";
+import Questions from "./Questions";
+import User from "./User";
 
 const PORT: number = Number.parseInt(process.env.PORT) || 8080;
 const gamesSockets: Map<number, Namespace> = new Map();
@@ -69,7 +68,7 @@ app.post('/api/game/create', async (req: Request, res: Response): Promise<void> 
     const {masterName, gameTitle}: { masterName: string, gameTitle: string } = req.body;
     const questions = await Questions.getQuestionsFromDb(1);
     const game = await Game.insertInDb(gameTitle, questions);
-    const master = await Master.insertInDb(masterName, game.id);
+    const master = await User.insertMasterInDb(masterName, game.id);
     gamesIO.emit('addGame', game);
     createGameSocket(game.id);
     setCookie(res, Role.master, game.id, master.id);
@@ -78,7 +77,7 @@ app.post('/api/game/create', async (req: Request, res: Response): Promise<void> 
 app.post('/api/game/join', async (req: Request, res: Response): Promise<void> => {
     const playerName = req.body.playerName;
     const gameId = Number.parseInt(req.body.gameId);
-    const player = await Player.insertInDb(playerName, gameId);
+    const player = await User.insertPlayerInDb(playerName, gameId);
     const game = await Game.join(player.id, gameId);
     await emitGameState(gameId);
     setCookie(res, Role.player, game.id, player.id);

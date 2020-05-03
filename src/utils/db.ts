@@ -8,7 +8,7 @@ const pool = new Pool({
     port: 5432
 });
 
-export const query = async (command: string, params?: string[]) => {
+export const query = async (command: string, params?: string[]): Promise<any> => {
     try {
         const client = await pool.connect();
         const startTime = Date.now();

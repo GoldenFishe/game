@@ -11,24 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("./utils/db");
 class Questions {
-    constructor(jsonScheme) {
-        this.title = jsonScheme.title;
-        this.rounds = jsonScheme.rounds;
-    }
     static insertInDb(jsonQuestions) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield db_1.query(`INSERT INTO questions (questions) VALUES ('${jsonQuestions}') RETURNING *`);
-        });
-    }
-    static getQuestionsFromDb(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const [{ questions }] = yield db_1.query(`SELECT * FROM questions WHERE id = ${id}`);
+            const [questions] = yield db_1.query(`INSERT INTO questions (questions) VALUES ('${jsonQuestions}') RETURNING *`);
             return questions;
         });
     }
-    getQuestion(roundIndex, categoryId, questionId) {
-        const category = this.rounds[roundIndex].find(({ id }) => id === categoryId);
-        return category.questions.find(({ id }) => id === questionId);
+    static getQuestionsFromDb(questionsId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const [{ questions }] = yield db_1.query(`SELECT * FROM questions WHERE id = ${questionsId}`);
+            return questions;
+        });
     }
 }
 exports.default = Questions;

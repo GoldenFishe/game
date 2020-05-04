@@ -33,7 +33,7 @@ app.use(body_parser_1.default.json());
 app.use(morgan_1.default('combined', {
     stream: {
         write: (message) => {
-            logger_1.default.info(message);
+            logger_1.default.log('info', message);
         }
     }
 }));
@@ -83,6 +83,11 @@ app.get('/api/games', (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const games = yield Game_1.default.getAllGamesFromDb();
     logger_1.default.log('info', 'get games');
     res.send(games);
+}));
+app.get('/api/questions', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const questions = yield Questions_1.default.getAllQuestionsFromDb();
+    logger_1.default.log('info', 'get games');
+    res.send(questions);
 }));
 app.get('/api/game/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const gameId = Number.parseInt(req.params.id);

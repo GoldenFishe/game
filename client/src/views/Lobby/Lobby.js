@@ -6,6 +6,7 @@ import {GET, POST} from "../../utils";
 import GamesList from "./components/GamesList/GamesList";
 import GameDetails from "./components/GameDetails/GameDetails";
 import CreateGameForm from "./components/CreateGameForm/CreateGameForm";
+import QuestionsList from "./components/QuestionsList/QuestionsList";
 import './style.css';
 
 const socket = io('http://localhost:8080/api/games', {transports: ['websocket']});
@@ -13,9 +14,12 @@ const socket = io('http://localhost:8080/api/games', {transports: ['websocket']}
 const Lobby = () => {
     const history = useHistory();
     const [games, setGames] = useState([]);
+    const [questions, setQuestions] = useState([]);
     const [selectedGame, selectGame] = useState(null);
+    const [selectedQuestion, selectQuestion] = useState(null);
     useEffect(() => {
         getGames();
+        getQuestions();
         socket.on('addGame', game => {
             setGames(g => [...g, game])
         });
@@ -24,6 +28,10 @@ const Lobby = () => {
     const getGames = async () => {
         const {data} = await GET('/api/games');
         setGames(data);
+    }
+    const getQuestions = async () => {
+        const {data} = await GET('/api/questions');
+        setQuestions(data);
     }
     const createGame = async e => {
         e.preventDefault();
@@ -49,6 +57,9 @@ const Lobby = () => {
                              joinGame={joinGame}/> :
                 <CreateGameForm createGame={createGame}/>
             }
+            <QuestionsList questions={questions}
+                           selectedQuestion={selectedQuestion}
+                           selectQuestion={selectQuestion}/>
         </div>
     );
 };

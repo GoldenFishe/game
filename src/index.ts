@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(morgan('combined', {
     stream: {
         write: (message: string) => {
-            logger.info(message)
+            logger.log('info', message);
         }
     }
 }));
@@ -76,6 +76,11 @@ app.get('/api/games', async (req: Request, res: Response): Promise<void> => {
     const games = await Game.getAllGamesFromDb();
     logger.log('info', 'get games');
     res.send(games);
+});
+app.get('/api/questions', async (req: Request, res: Response): Promise<void> => {
+    const questions = await Questions.getAllQuestionsFromDb();
+    logger.log('info', 'get games');
+    res.send(questions);
 });
 app.get('/api/game/:id', async (req: Request, res: Response): Promise<void> => {
     const gameId = Number.parseInt(req.params.id);

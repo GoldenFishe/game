@@ -11,6 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const db_1 = require("./utils/db");
 class Questions {
+    static getAllQuestionsFromDb() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield db_1.query(`SELECT * FROM questions`);
+        });
+    }
     static insertInDb(jsonQuestions) {
         return __awaiter(this, void 0, void 0, function* () {
             const [questions] = yield db_1.query(`INSERT INTO questions (questions) VALUES ('${jsonQuestions}') RETURNING *`);

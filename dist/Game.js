@@ -33,16 +33,6 @@ class Game {
             return yield db_1.query(`SELECT * FROM games`);
         });
     }
-    static selectPlayer(playerId, gameId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield db_1.query(`UPDATE games SET selected_player_id = ${playerId} WHERE id = ${gameId}`);
-        });
-    }
-    static setMasterId(masterId, gameId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield db_1.query(`UPDATE games SET master_id = ${masterId} WHERE id = ${gameId}`);
-        });
-    }
     static selectQuestion(categoryId, questionId, gameId) {
         return __awaiter(this, void 0, void 0, function* () {
             const game = yield Game.getGameFromDb(gameId);
@@ -51,36 +41,19 @@ class Game {
             yield db_1.query(`UPDATE games SET selected_category_id = ${categoryId}, selected_question = '${JSON.stringify(question)}' WHERE id = ${gameId}`);
         });
     }
-    static setAnswer(answer, userId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield db_1.query(`UPDATE users SET answer = '${answer}' WHERE id = ${userId}`);
-        });
-    }
-    static join(playerId, gameId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const [game] = yield db_1.query(`UPDATE games SET players_ids = array_append(players_ids, ${playerId}) WHERE id = ${gameId} RETURNING *`);
-            return game;
-        });
-    }
-    static leave(playerId, gameId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const game = yield Game.getGameFromDb(gameId);
-            const filteredPlayersIds = game.players_ids.filter((id) => playerId !== id);
-            yield db_1.query(`UPDATE games SET players_ids = ARRAY[${filteredPlayersIds}] WHERE id = ${gameId}`);
-        });
-    }
     static getState(gameId) {
         return __awaiter(this, void 0, void 0, function* () {
             const gamePromise = Game.getGameFromDb(gameId);
             const playersPromise = User_1.default.getGamePlayers(gameId);
             const masterPromise = User_1.default.getGameMaster(gameId);
             const [game, players, master] = yield Promise.all([gamePromise, playersPromise, masterPromise]);
+            const selectedPlayer = players.find((player) => !!player.selected);
             return {
                 id: game.id,
                 title: game.title,
                 master: master,
                 players: players,
-                selectedPlayerId: game.selected_player_id,
+                selectedPlayerId: selectedPlayer ? selectedPlayer.id : null,
                 categories: game.questions.rounds[game.current_round_index],
                 selectedCategoryId: game.selected_category_id,
                 selectedQuestion: game.selected_question
@@ -90,7 +63,9 @@ class Game {
     static judgeAnswer(correct, gameId) {
         return __awaiter(this, void 0, void 0, function* () {
             const game = yield Game.getGameFromDb(gameId);
-            correct ? yield Game.correctAnswer(game) : yield Game.incorrectAnswer(game);
+            const selectedPlayer = yield User_1.default.getSelectedPlayer(game.id);
+            correct ? yield Game.correctAnswer(game, selectedPlayer) : yield Game.incorrectAnswer(game, selectedPlayer);
+            yield User_1.default.deselectPlayer(selectedPlayer.id);
         });
     }
     static destroyGame(gameId) {
@@ -98,7 +73,7 @@ class Game {
             yield db_1.query(`DELETE FROM games WHERE id = ${gameId}`);
         });
     }
-    static correctAnswer(game) {
+    static correctAnswer(game, selectedPlayer) {
         return __awaiter(this, void 0, void 0, function* () {
             const rounds = game.questions.rounds.map((round, i) => {
                 if (i === game.current_round_index) {
@@ -125,14 +100,13 @@ class Game {
                     console.log('finish game');
                 }
             }
-            yield db_1.query(`UPDATE users SET points = points + ${game.selected_question.cost}, answer = null WHERE id = ${game.selected_player_id}`);
-            yield db_1.query(`UPDATE games SET selected_player_id = null, questions = '${JSON.stringify(questions)}', selected_category_id = null, selected_question = null, current_round_index = ${roundIndex} WHERE id = ${game.id}`);
+            yield User_1.default.plusPoints(game.selected_question.cost, selectedPlayer.id);
+            yield db_1.query(`UPDATE games SET questions = '${JSON.stringify(questions)}', selected_category_id = null, selected_question = null, current_round_index = ${roundIndex} WHERE id = ${game.id}`);
         });
     }
-    static incorrectAnswer(game) {
+    static incorrectAnswer(game, selectedPlayer) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_1.query(`UPDATE users SET points = points - ${game.selected_question.cost}, answer = null WHERE id = ${game.selected_player_id}`);
-            yield db_1.query(`UPDATE games SET selected_player_id = null WHERE id = ${game.id}`);
+            yield User_1.default.minusPoints(game.selected_question.cost, selectedPlayer.id);
         });
     }
     static checkRoundIsOver(round) {

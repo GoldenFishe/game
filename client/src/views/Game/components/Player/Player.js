@@ -13,13 +13,13 @@ const Player = ({player, visibleAnswerButton, visibleAnswerForm, selectedPlayer,
             {visibleAnswerButton && <Button onClick={onSelectPlayer}>Ответить</Button>}
             {player.answer && <p>{player.answer}</p>}
             {visibleAnswerForm &&
-            <form>
+            <form onSubmit={e => {
+                e.preventDefault();
+                onSendAnswer();
+            }}>
                 <Textarea onChange={e => onSetAnswer(e.target.value)}
                           value={answer}/>
-                <Button type="submit"
-                        onClick={onSendAnswer}>
-                    Отправить ответ
-                </Button>
+                <Button type="submit">Отправить ответ</Button>
             </form>}
         </div>
     );

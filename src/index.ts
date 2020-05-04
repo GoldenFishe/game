@@ -4,12 +4,14 @@ import cookieParser from "cookie-parser";
 import cookie from "cookie";
 import bodyParser from "body-parser";
 import socket, {Namespace, Server, Socket} from "socket.io";
+import morgan from "morgan";
 
 import {Role} from "./enums/Role";
 import Game from "./Game";
 import Questions from "./Questions";
 import User from "./User";
 import {GameType} from "./types/Game";
+import logger from "./utils/logger";
 
 const PORT: number = Number.parseInt(process.env.PORT) || 8080;
 const gamesSockets: Map<GameType["id"], Namespace> = new Map();
@@ -18,6 +20,13 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(morgan('combined', {
+    stream: {
+        write: (message: string) => {
+            logger.info(message)
+        }
+    }
+}));
 
 const server = http.createServer(app);
 const io: Server = socket(server, {cookie: true});
@@ -45,7 +54,7 @@ const createGameSocket = (gameId: number): void => {
                 Game.destroyGame(gameId);
                 gamesSockets.delete(gameId);
             } else {
-                Game.leave(userId, gameId)
+                User.removePlayer(userId);
             }
         });
     });
@@ -65,6 +74,7 @@ createGamesSockets();
 
 app.get('/api/games', async (req: Request, res: Response): Promise<void> => {
     const games = await Game.getAllGamesFromDb();
+    logger.log('info', 'get games');
     res.send(games);
 });
 app.get('/api/game/:id', async (req: Request, res: Response): Promise<void> => {
@@ -91,29 +101,28 @@ app.post('/api/game/join', async (req: Request, res: Response): Promise<void> =>
     const playerName = req.body.playerName;
     const gameId = Number.parseInt(req.body.gameId);
     const player = await User.insertPlayerInDb(playerName, gameId);
-    const game = await Game.join(player.id, gameId);
     await emitGameState(gameId);
-    setCookie(res, Role.player, game.id, player.id);
-    res.send({id: game.id});
+    setCookie(res, Role.player, gameId, player.id);
+    res.send({id: gameId});
 });
-app.post('/api/game/select-question', async (req: Request, res: Response) => {
+app.post('/api/game/select-question', async (req: Request, res: Response): Promise<void> => {
     const {gameId} = getCookie(req);
-    const categoryId: number = req.body.categoryId;
-    const questionId: number = req.body.questionId;
+    const categoryId: number = Number.parseInt(req.body.categoryId);
+    const questionId: number = Number.parseInt(req.body.questionId);
     await Game.selectQuestion(categoryId, questionId, gameId);
     await emitGameState(gameId);
     res.sendStatus(200);
 });
 app.post('/api/game/select-player', async (req: Request, res: Response): Promise<void> => {
-    const {userId, gameId} = getCookie(req);
-    await Game.selectPlayer(userId, gameId);
+    const {gameId, userId} = getCookie(req);
+    await User.selectPlayer(userId);
     await emitGameState(gameId);
     res.sendStatus(200);
 });
-app.post('/api/game/set-answer', async (req: Request, res: Response) => {
+app.post('/api/game/set-answer', async (req: Request, res: Response): Promise<void> => {
     const {userId, gameId} = getCookie(req);
     const answer: string = req.body.answer;
-    await Game.setAnswer(answer, userId);
+    await User.setAnswer(answer, userId);
     await emitGameState(gameId);
     res.sendStatus(200);
 });

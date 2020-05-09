@@ -22,10 +22,18 @@ li {
     list-style: none;
 }
 
-.h3 {
+.h1, .h3, .h4 {
     margin-bottom: 20px;
 }
 
+.h1 {
+
+}
+
+.h3 {
+
+}
+
 .h4 {
-    margin-bottom: 20px;
+
 }

@@ -65,6 +65,7 @@ const Lobby = () => {
     }
     return (
         <div className="lobby">
+            <h1 className="h1 lobby__title">Своия игра онлайн</h1>
             <GamesList games={games}
                        selectedGame={selectedGame}
                        selectGame={selectGame}/>

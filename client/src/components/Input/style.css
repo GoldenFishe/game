@@ -1,6 +1,7 @@
 .input {
     display: flex;
     flex-flow: column;
+    color: black;
 }
 
 .input__input {
@@ -23,12 +24,4 @@
 
 .input__input:read-only {
     opacity: 0.7;
-}
-
-.input__input:not(:first-child) {
-    margin-top: 10px;
-}
-
-.input__input:not(:last-child) {
-    margin-bottom: 10px;
 }

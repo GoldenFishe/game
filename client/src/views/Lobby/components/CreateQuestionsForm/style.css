@@ -1,0 +1,4 @@
+.lobby-create-questions-form__form {
+    display: flex;
+    flex-flow: column;
+}

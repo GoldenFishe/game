@@ -18,6 +18,7 @@ const AddQuestion = ({onAddQuestion}) => {
                    onChange={e => setAnswer(e.target.value)}/>
             <Input label="Очки"
                    value={points}
+                   type="number"
                    onChange={e => setPoints(e.target.value)}/>
             <Button onClick={() => onAddQuestion(question, answer, points)}>Добавить вопрос</Button>
         </div>

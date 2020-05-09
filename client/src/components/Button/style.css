@@ -12,11 +12,3 @@
     outline: none;
     border: 1px solid var(--blue);
 }
-
-.button:not(:first-child) {
-    margin-top: 10px;
-}
-
-.button:not(:last-child) {
-    margin-bottom: 10px;
-}

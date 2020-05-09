@@ -358,3 +358,219 @@
 {"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:16:52:05 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
 {"level":"info","message":"get all games"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:16:52:05 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:18:32 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:18:32 +0000] \"GET /api/questions HTTP/1.1\" 200 2904 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:19:43 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:19:43 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:19:51 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:19:51 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:20:42 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:20:42 +0000] \"GET /api/questions HTTP/1.1\" 200 2904 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:21:44 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:21:44 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:23:03 +0000] \"GET /api/questions HTTP/1.1\" 200 2904 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:23:03 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:23:51 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:23:51 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:32:07 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:32:07 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:32:48 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:32:48 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:33:50 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:33:50 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:43:19 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:43:19 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:47:47 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:47:47 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:49:20 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:49:20 +0000] \"GET /api/questions HTTP/1.1\" 200 2904 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:50:33 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:50:33 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:52:01 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:52:01 +0000] \"GET /api/questions HTTP/1.1\" 200 2904 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:53:25 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:53:25 +0000] \"GET /api/questions HTTP/1.1\" 200 2904 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:54:28 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:54:28 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:55:20 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:55:20 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:56:12 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:17:56:12 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:01:41 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:01:41 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:03:17 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:03:17 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:04:16 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:04:16 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:06:55 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:06:55 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:09:08 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:09:08 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:11:37 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:11:37 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:12:18 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:12:18 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:13:06 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:13:06 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:13:44 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:13:44 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:15:40 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:15:40 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:16:30 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:16:30 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:17:23 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:17:23 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:17:25 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:17:25 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:18:08 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:18:08 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:19:32 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:19:32 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:20:42 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:20:42 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:25:44 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:25:44 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:25:48 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:25:48 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:29:57 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:29:57 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:31:03 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:31:03 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:32:34 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:32:34 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:35:06 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:35:06 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:35:09 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:35:09 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:36:04 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:36:04 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:37:11 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:37:11 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:37:30 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:37:30 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:37:32 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:37:32 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:42:27 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:42:27 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:42:58 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:42:58 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:44:01 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:44:01 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:45:25 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:45:25 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:49:47 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:49:47 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:55:44 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:18:55:44 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:19:05:00 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:19:05:00 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:19:07:29 +0000] \"GET /api/games HTTP/1.1\" 200 2 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [09/May/2020:19:07:29 +0000] \"GET /api/questions HTTP/1.1\" 200 8602 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36\"\n"}

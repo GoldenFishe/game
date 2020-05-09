@@ -1,0 +1,28 @@
+.expanded {
+
+}
+
+.expanded:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.expanded-label {
+    display: flex;
+    flex-flow: row;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.expanded-label__icon {
+    margin-top: 2px;
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+}
+
+.expanded-items {
+    border-left: 1px solid #a09f9f;
+    margin-left: 7px;
+    padding-left: 30px;
+    color: #8c8b8b;
+}

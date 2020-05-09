@@ -1,0 +1,14 @@
+.lobby-questions-details-round:not(:last-child) {
+    margin-bottom: 40px;
+}
+
+.lobby-questions-details-question {
+    display: grid;
+    grid-template-columns: auto minmax(40px, auto);
+    justify-content: space-between;
+    grid-column-gap: 20px;
+}
+
+.lobby-questions-details-question:not(:last-child) {
+    margin-bottom: 5px;
+}

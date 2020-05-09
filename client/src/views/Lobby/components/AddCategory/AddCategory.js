@@ -8,7 +8,7 @@ const AddCategory = ({onAddCategory}) => {
     const [title, setTitle] = useState('');
     return (
         <div>
-            <Input value={title} onChange={e => setTitle(e.target.value)}/>
+            <Input label="Название категории" value={title} onChange={e => setTitle(e.target.value)}/>
             <Button onClick={() => onAddCategory(title)}>Добавить категорию</Button>
         </div>
     );

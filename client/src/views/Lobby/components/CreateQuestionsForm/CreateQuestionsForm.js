@@ -4,8 +4,8 @@ import Input from "../../../../components/Input/Input";
 import AddQuestion from "../AddQuestion/AddQuestion";
 import Button from "../../../../components/Button/Button";
 import AddCategory from "../AddCategory/AddCategory";
+import Expanded from "../../../../components/Expanded/Expanded";
 import './style.css';
-import {POST} from "../../../../utils";
 
 const CreateQuestionsForm = ({createQuestions}) => {
     const [title, setTitle] = useState('');
@@ -47,19 +47,21 @@ const CreateQuestionsForm = ({createQuestions}) => {
                     return (
                         <div className="lobby-create-questions-form__round"
                              key={roundIndex}>
-                            <h6>Раунд {roundIndex + 1}</h6>
-                            {round.map((category) => {
-                                return (
-                                    <div key={category.id}>
-                                        <h6>{category.title}</h6>
-                                        {category.questions.map((question) => {
-                                            return <p>{question.text}</p>
-                                        })}
-                                        <AddQuestion key={category.id}
-                                                     onAddQuestion={(question, answer, points) => addQuestion(roundIndex, category.id, question, answer, points)}/>
-                                    </div>
-                                )
-                            })}
+                            <h4 className="h4">Раунд {roundIndex + 1}</h4>
+                            {round.map(category => (
+                                <Expanded label={category.title}
+                                          defaultExpand={true}
+                                          key={category.id}>
+                                    {category.questions.map((question) => (
+                                        <div className="lobby-questions-details-question">
+                                            <p className="lobby-questions-details-question__text">{question.text}</p>
+                                            <p className="lobby-questions-details-question__points">{question.cost}</p>
+                                        </div>
+                                    ))}
+                                    <AddQuestion key={category.id}
+                                                 onAddQuestion={(question, answer, points) => addQuestion(roundIndex, category.id, question, answer, points)}/>
+                                </Expanded>
+                            ))}
                             <AddCategory onAddCategory={title => addCategory(roundIndex, title)}/>
                         </div>
                     )

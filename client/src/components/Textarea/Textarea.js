@@ -1,4 +1,5 @@
 import React, {memo} from 'react';
+import {func, string} from "prop-types";
 
 import './style.css';
 
@@ -9,5 +10,11 @@ const Textarea = ({value, onChange}) => {
                   onChange={onChange}/>
     );
 };
+
+
+Textarea.propTypes = {
+    value: string.isRequired,
+    onChange: func.isRequired
+}
 
 export default memo(Textarea);

@@ -1,4 +1,33 @@
+.lobby-create-questions-form {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+}
+
 .lobby-create-questions-form__form {
     display: flex;
     flex-flow: column;
+    overflow: auto;
+    height: 100%;
+}
+
+.lobby-create-questions-form__form > .input {
+    margin-bottom: 30px;
+}
+
+.lobby-create-questions-form__round {
+    margin-bottom: 30px;
+}
+
+.lobby-create-questions-form-controls {
+    display: flex;
+    flex-flow: row;
+}
+
+.lobby-create-questions-form-controls .button {
+    flex: 1 0 auto;
+}
+
+.lobby-create-questions-form-controls .button:first-child {
+    margin-right: 10px;
 }

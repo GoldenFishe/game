@@ -8,10 +8,10 @@ const CreateGameForm = ({createGame}) => {
     return (
         <form onSubmit={createGame}
               className="lobby-create-game-form">
-            <h3 className="h3">Создать игру</h3>
+            <h3 className="h3">Новая игра</h3>
             <Input label="Название игры" name="game_title"/>
             <Input label="Имя ведущего" name="master_name"/>
-            <Button type="submit">Создать игру</Button>
+            <Button type="submit" primary>Создать игру</Button>
         </form>
     );
 };

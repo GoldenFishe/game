@@ -52,7 +52,7 @@ const CreateQuestionsForm = ({createQuestions}) => {
                                 <Expanded label={category.title}
                                           defaultExpand={true}
                                           key={category.id}>
-                                    {category.questions.map((question) => (
+                                    {category.questions.map(question => (
                                         <div className="lobby-questions-details-question">
                                             <p className="lobby-questions-details-question__text">{question.text}</p>
                                             <p className="lobby-questions-details-question__points">{question.cost}</p>
@@ -66,8 +66,16 @@ const CreateQuestionsForm = ({createQuestions}) => {
                         </div>
                     )
                 })}
-                <Button onClick={addEmptyRound}>Добавить раунд</Button>
-                <Button type="submit">Сохранить</Button>
+                <div className="lobby-create-questions-form-controls">
+                    <Button onClick={addEmptyRound}
+                            secondary>
+                        Добавить раунд
+                    </Button>
+                    <Button type="submit"
+                            primary>
+                        Сохранить
+                    </Button>
+                </div>
             </form>
         </div>
     );

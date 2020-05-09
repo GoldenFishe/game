@@ -1,3 +1,14 @@
+.lobby-questions-details {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+}
+
+.lobby-questions-details-rounds {
+    overflow: auto;
+    height: 100%;
+}
+
 .lobby-questions-details-round:not(:last-child) {
     margin-bottom: 40px;
 }

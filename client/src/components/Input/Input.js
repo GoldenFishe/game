@@ -21,19 +21,18 @@ const Input = ({label, type, value, name, required, id, readOnly, onChange}) => 
 };
 
 Input.defaultProps = {
-    type: 'text',
-    value: ''
+    type: 'text'
 }
 
 Input.propTypes = {
     label: string.isRequired,
     type: string.isRequired,
-    value: oneOfType([string, number]).isRequired,
+    value: oneOfType([string, number]),
     name: string,
     required: bool,
     id: string,
     readOnly: bool,
-    onChange: func.isRequired
+    onChange: func
 
 }
 

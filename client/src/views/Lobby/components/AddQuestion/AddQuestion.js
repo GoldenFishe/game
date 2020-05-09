@@ -7,9 +7,15 @@ import './style.css';
 const AddQuestion = ({onAddQuestion}) => {
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
-    const [points, setPoints] = useState(0);
+    const [points, setPoints] = useState(100);
+    const addQuestion = () => {
+        onAddQuestion(question, answer, points);
+        setQuestion('');
+        setAnswer('');
+        setPoints(100);
+    }
     return (
-        <div>
+        <div className="lobby-create-questions-form-add-question">
             <Input label="Вопрос"
                    value={question}
                    onChange={e => setQuestion(e.target.value)}/>
@@ -20,7 +26,10 @@ const AddQuestion = ({onAddQuestion}) => {
                    value={points}
                    type="number"
                    onChange={e => setPoints(e.target.value)}/>
-            <Button onClick={() => onAddQuestion(question, answer, points)}>Добавить вопрос</Button>
+            <Button secondary
+                    onClick={addQuestion}>
+                Добавить вопрос
+            </Button>
         </div>
     );
 };

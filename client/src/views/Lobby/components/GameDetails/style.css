@@ -1,0 +1,21 @@
+.lobby-game-details {
+    display: flex;
+    flex-flow: column;
+}
+
+.lobby-game-details-field {
+    margin-bottom: 15px;
+}
+
+.lobby-game-details-field__label {
+    margin-bottom: 5px;
+    color: #8c8b8b;
+}
+
+.lobby-game-details-field__value {
+
+}
+
+.lobby-game-details .button {
+    margin-top: 15px;
+}

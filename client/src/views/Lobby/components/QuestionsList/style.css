@@ -1,6 +1,7 @@
 .lobby-questions {
     display: flex;
     flex-flow: column;
+    overflow: hidden;
 }
 
 .lobby-questions-list {
@@ -10,7 +11,8 @@
     border-radius: 10px;
     border: 1px solid var(--gray);
     box-shadow: inset 3px 3px 3px var(--gray);
-    flex: 1 0 auto;
+    height: 100%;
+    overflow: auto;
 }
 
 .lobby-questions-list__item {
@@ -28,4 +30,8 @@
 
 .lobby-questions-list__item--selected {
     border: 1px solid var(--blue);
+}
+
+.lobby-questions .button {
+    margin-top: 15px;
 }

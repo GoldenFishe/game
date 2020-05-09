@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
 
+import Button from "../../../../components/Button/Button";
 import './style.css';
 
 const GamesList = ({games, selectedGame, selectGame}) => {
@@ -18,6 +19,10 @@ const GamesList = ({games, selectedGame, selectGame}) => {
                     )
                 })}
             </ul>
+            <Button primary
+                    onClick={() => selectGame(null)}>
+                Новая игра
+            </Button>
         </div>
     );
 };

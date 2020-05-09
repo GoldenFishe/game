@@ -1,0 +1,13 @@
+.lobby-create-questions-form-add-question {
+    margin-top: 20px;
+    display: flex;
+    flex-flow: column;
+}
+
+.lobby-create-questions-form-add-question .input {
+    margin-bottom: 10px;
+}
+
+.lobby-create-questions-form-add-question .button {
+    margin-top: 15px;
+}

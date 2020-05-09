@@ -6,9 +6,22 @@
     border-radius: 10px;
     font-size: 15px;
     font-family: inherit;
+    color: black;
 }
 
 .button:focus {
     outline: none;
     border: 1px solid var(--blue);
+}
+
+.button--primary {
+    background: var(--blue);
+    color: white;
+    border: 1px solid var(--blue);
+}
+
+.button--secondary {
+    background: white;
+    color: black;
+    border: 1px solid var(--gray);
 }

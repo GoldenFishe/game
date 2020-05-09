@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
 
+import Button from "../../../../components/Button/Button";
 import './style.css';
 
 const QuestionsList = ({questions, selectedQuestion, selectQuestion}) => {
@@ -18,6 +19,10 @@ const QuestionsList = ({questions, selectedQuestion, selectQuestion}) => {
                     )
                 })}
             </ul>
+            <Button primary
+                    onClick={() => selectQuestion(null)}>
+                Новый пак вопросов
+            </Button>
         </div>
     );
 };

@@ -1,5 +1,12 @@
 .lobby-create-game-form {
     display: flex;
     flex-flow: column;
-    width: 250px;
+}
+
+.lobby-create-game-form .input {
+    margin-bottom: 10px;
+}
+
+.lobby-create-game-form .button {
+    margin-top: 15px;
 }

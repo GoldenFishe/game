@@ -1,15 +1,24 @@
 import React, {memo, useState} from 'react';
 
-import './style.css';
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
+import './style.css';
 
 const AddCategory = ({onAddCategory}) => {
     const [title, setTitle] = useState('');
+    const addCategory = () => {
+        onAddCategory(title);
+        setTitle('');
+    };
     return (
-        <div>
-            <Input label="Название категории" value={title} onChange={e => setTitle(e.target.value)}/>
-            <Button onClick={() => onAddCategory(title)}>Добавить категорию</Button>
+        <div className="lobby-create-questions-form-add-category">
+            <Input label="Название категории"
+                   value={title}
+                   onChange={e => setTitle(e.target.value)}/>
+            <Button secondary
+                    onClick={addCategory}>
+                Добавить категорию
+            </Button>
         </div>
     );
 };

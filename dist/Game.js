@@ -17,7 +17,7 @@ const User_1 = __importDefault(require("./User"));
 class Game {
     static insertInDb(title, jsonQuestions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const questions = JSON.stringify(jsonQuestions);
+            const questions = JSON.stringify(jsonQuestions.questions);
             const [game] = yield db_1.query(`INSERT INTO games (title, questions) VALUES ('${title}', '${questions}') RETURNING *`);
             return game;
         });

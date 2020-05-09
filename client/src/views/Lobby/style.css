@@ -1,6 +1,6 @@
 .lobby {
     padding: 20px;
     display: grid;
-    grid-template-columns: 300px auto 300px;
+    grid-template-columns: 300px auto auto 300px;
     grid-column-gap: 40px;
 }

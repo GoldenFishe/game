@@ -1,13 +1,13 @@
 import {query} from "./utils/db";
-import {CategoryType, QuestionsType, QuestionType, RoundType} from "./types/Questions";
+import {CategoryType, QuestionsPackType, QuestionsType, QuestionType, RoundType} from "./types/Questions";
 import {GameStateType, GameType} from "./types/Game";
 import {UserType} from "./types/User";
 import User from "./User";
 
 export default class Game {
 
-    public static async insertInDb(title: string, jsonQuestions: QuestionsType): Promise<GameType> {
-        const questions: string = JSON.stringify(jsonQuestions);
+    public static async insertInDb(title: string, jsonQuestions: QuestionsPackType): Promise<GameType> {
+        const questions: string = JSON.stringify(jsonQuestions.questions);
         const [game]: GameType[] = await query(`INSERT INTO games (title, questions) VALUES ('${title}', '${questions}') RETURNING *`);
         return game;
     }

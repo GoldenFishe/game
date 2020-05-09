@@ -12,4 +12,8 @@ const Button = ({type, children, onClick}) => {
     );
 };
 
+Button.defaultProps = {
+    type: 'button'
+}
+
 export default memo(Button);

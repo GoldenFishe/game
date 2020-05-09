@@ -15,7 +15,7 @@ const Game = () => {
     const [answer, setAnswer] = useState('');
     const [user, setUser] = useState({role: null, id: null});
     useEffect(() => {
-        const socket = io(`http://localhost:8080/api/game/${id}`, {transports: ['websocket']});
+        const socket = io(`http://localhost:8080/ws/game/${id}`, {transports: ['websocket']});
         socket.on('getState', state => {
             setGameState(state);
         });

@@ -2,17 +2,24 @@ import React, {memo} from 'react';
 
 import './style.css';
 
-const Input = ({type, value, name, required, id, readOnly, onChange}) => {
+const Input = ({label, type, value, name, required, id, readOnly, onChange}) => {
     return (
-        <input type={type}
-               value={value}
-               name={name}
-               id={id}
-               required={required}
-               onChange={onChange}
-               readOnly={readOnly}
-               className="input"/>
+        <label className="input">
+            {label}
+            <input type={type}
+                   value={value}
+                   name={name}
+                   id={id}
+                   required={required}
+                   onChange={onChange}
+                   readOnly={readOnly}
+                   className="input__input"/>
+        </label>
     );
 };
+
+Input.defaultProps = {
+    type: 'text'
+}
 
 export default memo(Input);

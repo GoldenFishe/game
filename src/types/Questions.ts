@@ -1,3 +1,8 @@
+export type QuestionsPackType = {
+    id: number;
+    questions: QuestionsType;
+}
+
 export type QuestionsType = {
     title: string;
     rounds: RoundType[];

@@ -18,13 +18,13 @@ class Questions {
     }
     static insertInDb(jsonQuestions) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [questions] = yield db_1.query(`INSERT INTO questions (questions) VALUES ('${jsonQuestions}') RETURNING *`);
+            const [questions] = yield db_1.query(`INSERT INTO questions (questions) VALUES ('${JSON.stringify(jsonQuestions)}') RETURNING *`);
             return questions;
         });
     }
     static getQuestionsFromDb(questionsId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [{ questions }] = yield db_1.query(`SELECT * FROM questions WHERE id = ${questionsId}`);
+            const [questions] = yield db_1.query(`SELECT * FROM questions WHERE id = ${questionsId}`);
             return questions;
         });
     }

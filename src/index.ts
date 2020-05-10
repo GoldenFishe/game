@@ -35,7 +35,8 @@ const gamesIO: Namespace = io.of('/ws/games');
 const questionsPackIO: Namespace = io.of('/ws/questions');
 
 const setCookie = (res: Response, role: Role, gameId: number, userId: number): void => {
-    const cookieOptions = {expires: new Date(Date.now() + 900000), httpOnly: true};
+    //const cookieOptions = {expires: new Date(Date.now() + 900000), httpOnly: true};
+    const cookieOptions = {httpOnly: true};
     res.cookie('role', role, cookieOptions);
     res.cookie('gameId', gameId, cookieOptions);
     res.cookie('userId', userId, cookieOptions);
@@ -53,9 +54,9 @@ const createGameSocket = (gameId: number): void => {
             const userId: number = Number.parseInt(rawCookie.userId);
             const gameId: number = Number.parseInt(rawCookie.gameId);
             if (rawCookie.role === Role.master) {
-                Game.destroyGame(gameId);
-                gamesSockets.delete(gameId);
-                gamesIO.emit('deleteGame', {id: gameId});
+                // Game.destroyGame(gameId);
+                // gamesSockets.delete(gameId);
+                // gamesIO.emit('deleteGame', {id: gameId});
             } else {
                 User.removePlayer(userId);
             }

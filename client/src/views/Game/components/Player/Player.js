@@ -8,18 +8,27 @@ const Player = ({player, visibleAnswerButton, visibleAnswerForm, selectedPlayer,
     const className = `game-player${selectedPlayer ? ' game-player--selected' : ''}`;
     return (
         <div className={className}>
-            <div className="game-player__name">{player.name}</div>
-            <div className="game-player__points">{player.points}</div>
-            {visibleAnswerButton && <Button onClick={onSelectPlayer}>Ответить</Button>}
-            {player.answer && <p>{player.answer}</p>}
+            {player.answer && <p className="game-player__answer">{player.answer}</p>}
+            <div className="game-player-info">
+                <div className="game-player__name">{player.name}</div>
+                <div className="game-player__points">{player.points}</div>
+            </div>
+            {visibleAnswerButton &&
+            <Button primary
+                    onClick={onSelectPlayer}>
+                Ответить
+            </Button>}
             {visibleAnswerForm &&
-            <form onSubmit={e => {
-                e.preventDefault();
-                onSendAnswer();
-            }}>
-                <Textarea onChange={e => onSetAnswer(e.target.value)}
+            <form className="game-player-answer-form"
+                  onSubmit={e => {
+                      e.preventDefault();
+                      onSendAnswer();
+                  }}>
+                <Textarea autofocus
+                          onChange={e => onSetAnswer(e.target.value)}
                           value={answer}/>
-                <Button type="submit">Отправить ответ</Button>
+                <Button primary
+                        type="submit">Отправить ответ</Button>
             </form>}
         </div>
     );

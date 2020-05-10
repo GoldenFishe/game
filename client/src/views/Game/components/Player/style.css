@@ -1,9 +1,19 @@
 .game-player {
     display: flex;
     flex-flow: column;
-    border: 1px solid black;
     width: 150px;
+    position: relative;
+}
+
+.game-player:not(:last-child) {
+    margin-right: 20px;
+}
+
+.game-player-info {
+    border: 2px solid transparent;
     transition: var(--transition);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
 }
 
 .game-player__name {
@@ -22,6 +32,44 @@
     height: 50px;
 }
 
-.game-player--selected {
-    border: 1px solid var(--blue);
+.game-player--selected .game-player-info {
+    border: 2px solid var(--blue);
+}
+
+.game-player .button {
+    margin-top: 10px;
+}
+
+.game-player-answer-form {
+    display: flex;
+    flex-flow: column;
+    margin-top: 10px;
+}
+
+.game-player-answer-form .button {
+    margin-top: 10px;
+}
+
+.game-player__answer::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--gray);
+    position: absolute;
+    bottom: -6px;
+    left: calc(50% - 3px);
+}
+
+.game-player__answer {
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--gray);
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    transform: translateY(-100%);
+    box-shadow: var(--shadow);
 }

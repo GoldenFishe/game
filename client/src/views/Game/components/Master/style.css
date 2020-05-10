@@ -1,15 +1,40 @@
 .game-master {
+    margin-right: 40px;
+}
+
+.game-master-info {
     display: flex;
     flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
     width: 150px;
+    min-height: 100px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
 }
 
 .game-master__name {
+    height: 50px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
+}
+
+.game-master__answer {
+    min-height: 50px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--blue);
+}
+
+.game-master-controls {
+    display: flex;
+    flex-flow: column;
+    margin-top: 10px;
+}
+
+.game-master-controls .button:first-child {
+    margin-bottom: 10px;
 }

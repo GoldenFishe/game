@@ -27,7 +27,9 @@ const Game = () => {
         POST(`/api/game/select-player`);
     }
     const selectQuestion = (categoryId, questionId) => {
-        POST(`/api/game/select-question`, {categoryId, questionId});
+        if (user.id !== game.master.id) {
+            POST(`/api/game/select-question`, {categoryId, questionId});
+        }
     }
     const sendAnswer = async () => {
         await POST(`/api/game/set-answer`, {answer});
@@ -55,6 +57,7 @@ const Game = () => {
                     <div className="game-participants">
                         <Master master={game.master}
                                 currentUser={user.id === game.master.id}
+                                selectedQuestion={game.selectedQuestion}
                                 visibleJudgeControls={game.players.some(player => player.answer)}
                                 onJudge={judge}/>
                         {game.players.map(player => {

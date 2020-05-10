@@ -1,7 +1,8 @@
 .game-categories {
     display: flex;
     flex-flow: column;
-    height: 600px;
+    min-height: 600px;
+    min-width: 750px;
 }
 
 .game-category {
@@ -11,11 +12,32 @@
 
 .game-category__title,
 .game-question {
-    width: 100px;
-    height: 100px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border: 1px solid var(--gray);
+    padding: 20px;
+    background: var(--blue);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    transition: var(--transition);
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+}
+
+.game-category__title {
+    align-items: flex-start;
+    cursor: default;
+    width: 250px;
+}
+
+.game-question:empty {
+    cursor: default;
+}
+
+.game-question:not(:empty):hover {
+    background: #1542b3;
 }

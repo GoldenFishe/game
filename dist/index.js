@@ -42,7 +42,8 @@ const io = socket_io_1.default(server, { cookie: true });
 const gamesIO = io.of('/ws/games');
 const questionsPackIO = io.of('/ws/questions');
 const setCookie = (res, role, gameId, userId) => {
-    const cookieOptions = { expires: new Date(Date.now() + 900000), httpOnly: true };
+    //const cookieOptions = {expires: new Date(Date.now() + 900000), httpOnly: true};
+    const cookieOptions = { httpOnly: true };
     res.cookie('role', role, cookieOptions);
     res.cookie('gameId', gameId, cookieOptions);
     res.cookie('userId', userId, cookieOptions);
@@ -60,9 +61,9 @@ const createGameSocket = (gameId) => {
             const userId = Number.parseInt(rawCookie.userId);
             const gameId = Number.parseInt(rawCookie.gameId);
             if (rawCookie.role === Role_1.Role.master) {
-                Game_1.default.destroyGame(gameId);
-                gamesSockets.delete(gameId);
-                gamesIO.emit('deleteGame', { id: gameId });
+                // Game.destroyGame(gameId);
+                // gamesSockets.delete(gameId);
+                // gamesIO.emit('deleteGame', {id: gameId});
             }
             else {
                 User_1.default.removePlayer(userId);

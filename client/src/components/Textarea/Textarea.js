@@ -1,11 +1,12 @@
 import React, {memo} from 'react';
-import {func, string} from "prop-types";
+import {bool, func, string} from "prop-types";
 
 import './style.css';
 
-const Textarea = ({value, onChange}) => {
+const Textarea = ({value, autofocus, onChange}) => {
     return (
         <textarea value={value}
+                  autoFocus={autofocus}
                   className="textarea"
                   onChange={onChange}/>
     );
@@ -14,6 +15,7 @@ const Textarea = ({value, onChange}) => {
 
 Textarea.propTypes = {
     value: string.isRequired,
+    autofocus: bool,
     onChange: func.isRequired
 }
 

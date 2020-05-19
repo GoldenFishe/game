@@ -32,7 +32,7 @@ const Game = () => {
         }
     }
     const sendAnswer = async () => {
-        await POST(`/api/game/set-answer`, {answer});
+        await POST(`/api/game/set-message`, {answer});
         setAnswer('');
     }
     const judge = async correct => {
@@ -58,7 +58,7 @@ const Game = () => {
                         <Master master={game.master}
                                 currentUser={user.id === game.master.id}
                                 selectedQuestion={game.selectedQuestion}
-                                visibleJudgeControls={game.players.some(player => player.answer)}
+                                visibleJudgeControls={game.players.some(player => player.message)}
                                 onJudge={judge}/>
                         {game.players.map(player => {
                             const currentUser = user.id === player.id;

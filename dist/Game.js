@@ -22,6 +22,11 @@ class Game {
             return game;
         });
     }
+    static startGame(gameId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield db_1.query(`UPDATE games SET is_started = true WHERE id = ${gameId}`);
+        });
+    }
     static getGameFromDb(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const [game] = yield db_1.query(`SELECT * FROM games WHERE id = ${id}`);
@@ -56,7 +61,8 @@ class Game {
                 selectedPlayerId: selectedPlayer ? selectedPlayer.id : null,
                 categories: game.questions.rounds[game.current_round_index],
                 selectedCategoryId: game.selected_category_id,
-                selectedQuestion: game.selected_question
+                selectedQuestion: game.selected_question,
+                isStarted: game.is_started
             };
         });
     }

@@ -125,6 +125,15 @@ app.post('/api/game/join', async (req: Request, res: Response): Promise<void> =>
     logger.log('info', `join game`, {player});
     res.send({id: gameId});
 });
+app.post('/api/game/start', async (req: Request, res: Response): Promise<void> => {
+    const {gameId} = getCookie(req);
+    const players = await User.getGamePlayers(gameId);
+    await User.selectPlayer(players[0].id);
+    await Game.startGame(gameId);
+    await emitGameState(gameId);
+    logger.log('info', `start game`, {gameId});
+    res.sendStatus(200);
+});
 app.post('/api/game/select-question', async (req: Request, res: Response): Promise<void> => {
     const {gameId} = getCookie(req);
     const categoryId: number = Number.parseInt(req.body.categoryId);
@@ -141,12 +150,12 @@ app.post('/api/game/select-player', async (req: Request, res: Response): Promise
     logger.log('info', `select player`, {gameId, userId});
     res.sendStatus(200);
 });
-app.post('/api/game/set-answer', async (req: Request, res: Response): Promise<void> => {
+app.post('/api/game/set-message', async (req: Request, res: Response): Promise<void> => {
     const {userId, gameId} = getCookie(req);
     const answer: string = req.body.answer;
-    await User.setAnswer(answer, userId);
+    await User.setMessage(answer, userId);
     await emitGameState(gameId);
-    logger.log('info', `set answer`, {gameId, userId});
+    logger.log('info', `set message`, {gameId, userId});
     res.sendStatus(200);
 });
 app.post('/api/game/judge', async (req: Request, res: Response): Promise<void> => {

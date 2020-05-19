@@ -5,7 +5,7 @@ export type UserType = {
     name: string;
     game_id: number;
     points: number | null;
-    answer: string | null;
+    message: string | null;
     role: Role,
     selected: boolean;
 };

@@ -8,6 +8,7 @@ export type GameType = {
     current_round_index: number;
     selected_category_id: number | null;
     selected_question: QuestionType | null;
+    is_started: boolean;
 }
 
 export type GameStateType = {
@@ -19,4 +20,5 @@ export type GameStateType = {
     categories: RoundType,
     selectedCategoryId: number | null;
     selectedQuestion: QuestionType | null;
+    isStarted: boolean;
 }

@@ -131,6 +131,15 @@ app.post('/api/game/join', (req, res) => __awaiter(void 0, void 0, void 0, funct
     logger_1.default.log('info', `join game`, { player });
     res.send({ id: gameId });
 }));
+app.post('/api/game/start', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { gameId } = getCookie(req);
+    const players = yield User_1.default.getGamePlayers(gameId);
+    yield User_1.default.selectPlayer(players[0].id);
+    yield Game_1.default.startGame(gameId);
+    yield emitGameState(gameId);
+    logger_1.default.log('info', `start game`, { gameId });
+    res.sendStatus(200);
+}));
 app.post('/api/game/select-question', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { gameId } = getCookie(req);
     const categoryId = Number.parseInt(req.body.categoryId);
@@ -147,12 +156,12 @@ app.post('/api/game/select-player', (req, res) => __awaiter(void 0, void 0, void
     logger_1.default.log('info', `select player`, { gameId, userId });
     res.sendStatus(200);
 }));
-app.post('/api/game/set-answer', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.post('/api/game/set-message', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, gameId } = getCookie(req);
     const answer = req.body.answer;
-    yield User_1.default.setAnswer(answer, userId);
+    yield User_1.default.setMessage(answer, userId);
     yield emitGameState(gameId);
-    logger_1.default.log('info', `set answer`, { gameId, userId });
+    logger_1.default.log('info', `set message`, { gameId, userId });
     res.sendStatus(200);
 }));
 app.post('/api/game/judge', (req, res) => __awaiter(void 0, void 0, void 0, function* () {

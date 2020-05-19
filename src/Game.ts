@@ -12,6 +12,10 @@ export default class Game {
         return game;
     }
 
+    public static async startGame(gameId: number): Promise<void> {
+        await query(`UPDATE games SET is_started = true WHERE id = ${gameId}`);
+    }
+
     public static async getGameFromDb(id: number): Promise<GameType> {
         const [game]: GameType[] = await query(`SELECT * FROM games WHERE id = ${id}`);
         return game;
@@ -42,7 +46,8 @@ export default class Game {
             selectedPlayerId: selectedPlayer ? selectedPlayer.id : null,
             categories: game.questions.rounds[game.current_round_index],
             selectedCategoryId: game.selected_category_id,
-            selectedQuestion: game.selected_question
+            selectedQuestion: game.selected_question,
+            isStarted: game.is_started
         }
     }
 

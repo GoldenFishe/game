@@ -41,16 +41,16 @@ export default class User {
         await query(`UPDATE users SET selected = false WHERE id = ${userId}`);
     }
 
-    public static async setAnswer(answer: string, userId: number): Promise<void> {
-        await query(`UPDATE users SET answer = '${answer}' WHERE id = ${userId}`);
+    public static async setMessage(message: string, userId: number): Promise<void> {
+        await query(`UPDATE users SET message = '${message}' WHERE id = ${userId}`);
     }
 
     public static async plusPoints(points: number, userId: number): Promise<void> {
-        await query(`UPDATE users SET points = points + ${points}, answer = null WHERE id = ${userId}`);
+        await query(`UPDATE users SET points = points + ${points}, message = null WHERE id = ${userId}`);
     }
 
     public static async minusPoints(points: number, userId: number): Promise<void> {
-        await query(`UPDATE users SET points = points - ${points}, answer = null WHERE id = ${userId}`);
+        await query(`UPDATE users SET points = points - ${points}, message = null WHERE id = ${userId}`);
     }
 
     public static async removePlayer(playerId: number): Promise<void> {

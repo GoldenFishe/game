@@ -1362,3 +1362,35 @@
 {"level":"info","message":"::ffff:127.0.0.1 - - [10/May/2020:13:25:13 +0000] \"GET /api/games HTTP/1.1\" 200 17463 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36\"\n"}
 {"level":"info","message":"get all questions"}
 {"level":"info","message":"::ffff:127.0.0.1 - - [10/May/2020:13:25:13 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Mobile Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:02 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:02 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:08 +0000] \"GET /api/games HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:08 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","player":{"id":165,"name":"gggg","game_id":114,"points":0,"answer":null,"role":"player","selected":false},"level":"info","message":"join game"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:29 +0000] \"POST /api/game/join HTTP/1.1\" 200 10 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","gameId":114,"level":"info","message":"get game"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:29 +0000] \"GET /api/game/114 HTTP/1.1\" 200 3171 \"http://localhost:3000/game/114\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","user":{"id":165,"name":"gggg","game_id":114,"points":0,"answer":null,"role":"player","selected":false},"level":"info","message":"get user"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:29 +0000] \"GET /api/user HTTP/1.1\" 200 26 \"http://localhost:3000/game/114\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","categoryId":2,"questionId":11,"gameId":114,"level":"info","message":"select question"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:34 +0000] \"POST /api/game/select-question HTTP/1.1\" 200 2 \"http://localhost:3000/game/114\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","gameId":114,"userId":165,"level":"info","message":"select player"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:43 +0000] \"POST /api/game/select-player HTTP/1.1\" 200 2 \"http://localhost:3000/game/114\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","gameId":114,"userId":165,"level":"info","message":"set answer"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:44 +0000] \"POST /api/game/set-answer HTTP/1.1\" 200 2 \"http://localhost:3000/game/114\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","gameId":114,"userId":165,"level":"info","message":"set answer"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:08:46 +0000] \"POST /api/game/set-answer HTTP/1.1\" 200 2 \"http://localhost:3000/game/114\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"level":"info","message":"get all games"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:31:12 +0000] \"GET /api/games HTTP/1.1\" 200 34920 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"level":"info","message":"get all questions"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:31:12 +0000] \"GET /api/questions HTTP/1.1\" 304 - \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","player":{"id":166,"name":"jj","game_id":113,"points":0,"answer":null,"role":"player","selected":false},"level":"info","message":"join game"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:31:29 +0000] \"POST /api/game/join HTTP/1.1\" 200 10 \"http://localhost:3000/lobby\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","gameId":113,"level":"info","message":"get game"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:31:29 +0000] \"GET /api/game/113 HTTP/1.1\" 200 3556 \"http://localhost:3000/game/113\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}
+{"service":"user-service","user":{"id":166,"name":"jj","game_id":113,"points":0,"answer":null,"role":"player","selected":false},"level":"info","message":"get user"}
+{"level":"info","message":"::ffff:127.0.0.1 - - [19/May/2020:19:31:29 +0000] \"GET /api/user HTTP/1.1\" 200 26 \"http://localhost:3000/game/113\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36\"\n"}

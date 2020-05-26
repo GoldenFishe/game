@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  webserver:
+    container_name: webserver_container
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+  db:
+    container_name: db_container
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: ag.riazanov
+      POSTGRES_PASSWORD: 666666
+      POSTGRES_DB: game
+      PGDATA: /var/lib/postgresql/data/
+
+volumes:
+  database-data:
